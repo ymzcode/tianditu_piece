@@ -19,6 +19,7 @@
     "autoprefixer": "^10.4.13",
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
+    "naive-ui": "^2.34.2",
     "postcss": "^8.4.19",
     "prettier": "^2.7.1",
     "tailwindcss": "^3.2.4",

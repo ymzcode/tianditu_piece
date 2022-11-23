@@ -6,6 +6,7 @@ import { useTiandituStore } from "@/stores/tianditu";
 onMounted(() => {
   loadJs(`https://api.tianditu.gov.cn/api?v=4.0&tk=${tianditu_token}`).then(
     (res) => {
+      // 创建地图视图，初始化
       const map = new window.T.Map("mapTian");
       const pinia_useTiandituStore = useTiandituStore();
       pinia_useTiandituStore.initTmap(map);
