@@ -44,6 +44,13 @@ const pinia_settingStore = useSettingStore()
           <div>是否启用键盘操作</div>
           <n-switch :value="pinia_settingStore.isKeyboard" @click="pinia_settingStore.switchKeyboard()"/>
         </div>
+        <n-divider />
+        <!--        是否启用惯性拖拽-->
+        <div class="flex flex-row items-center justify-between">
+          <div>是否启用惯性拖拽</div>
+          <n-switch :value="pinia_settingStore.isInertia" @click="pinia_settingStore.switchInertia()"/>
+        </div>
+
       </div>
     </n-drawer-content>
   </n-drawer>

@@ -11,6 +11,8 @@ export const useSettingStore = defineStore("setting", {
     isDoubleClickZoom: true,
     // 是否启用键盘操作
     isKeyboard: true,
+    // 是否启用惯性操作
+    isInertia: true
   }),
   actions: {
     // 开关地图拖拽
@@ -56,5 +58,14 @@ export const useSettingStore = defineStore("setting", {
       }
       this.isKeyboard ? Tmap.enableKeyboard() : Tmap.disableKeyboard();
     },
+    switchInertia(flag) {
+      const { Tmap } = useTiandituStore();
+      if (flag == null) {
+        this.isInertia = !this.isInertia;
+      } else {
+        this.isInertia = flag;
+      }
+      this.isInertia ? Tmap.enableInertia() : Tmap.disableInertia();
+    }
   },
 });
