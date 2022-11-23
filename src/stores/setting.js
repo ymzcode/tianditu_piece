@@ -16,7 +16,9 @@ export const useSettingStore = defineStore("setting", {
     // 是否启用连续缩放
     isContinuousZoom: true,
     // 是否启用双指缩放
-    isPinchToZoom: true
+    isPinchToZoom: true,
+    // 是否启用自动适应容器尺寸
+    isAutoResize: true,
   }),
   actions: {
     // 开关地图拖拽
@@ -78,7 +80,9 @@ export const useSettingStore = defineStore("setting", {
       } else {
         this.isContinuousZoom = flag;
       }
-      this.isContinuousZoom ? Tmap.enableContinuousZoom() : Tmap.disableContinuousZoom();
+      this.isContinuousZoom
+        ? Tmap.enableContinuousZoom()
+        : Tmap.disableContinuousZoom();
     },
     switchPinchToZoom(flag) {
       const { Tmap } = useTiandituStore();
@@ -88,6 +92,15 @@ export const useSettingStore = defineStore("setting", {
         this.isPinchToZoom = flag;
       }
       this.isPinchToZoom ? Tmap.enablePinchToZoom() : Tmap.disablePinchToZoom();
-    }
+    },
+    switchAutoResize(flag) {
+      const { Tmap } = useTiandituStore();
+      if (flag == null) {
+        this.isAutoResize = !this.isAutoResize;
+      } else {
+        this.isAutoResize = flag;
+      }
+      this.isAutoResize ? Tmap.enableAutoResize() : Tmap.disableAutoResize();
+    },
   },
 });

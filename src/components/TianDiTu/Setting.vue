@@ -1,12 +1,12 @@
 <script setup>
 import { ref } from "vue";
 import { NDrawer, NDrawerContent, NSwitch, NDivider } from "naive-ui";
-import {useSettingStore} from "@/stores/setting";
+import { useSettingStore } from "@/stores/setting";
 
 // 展示抽屉
 const isShowModel = ref(false);
 
-const pinia_settingStore = useSettingStore()
+const pinia_settingStore = useSettingStore();
 </script>
 
 <template>
@@ -24,45 +24,74 @@ const pinia_settingStore = useSettingStore()
         <!--        是否启用地图拖拽-->
         <div class="flex flex-row items-center justify-between">
           <div>是否启用地图拖拽</div>
-          <n-switch :value="pinia_settingStore.isEnableDrag" @click="pinia_settingStore.switchEnableDrag()"/>
+          <n-switch
+            :value="pinia_settingStore.isEnableDrag"
+            @click="pinia_settingStore.switchEnableDrag()"
+          />
         </div>
         <n-divider />
         <!--        是否启用地图拖拽-->
         <div class="flex flex-row items-center justify-between">
           <div>是否启用滚轮放大缩小</div>
-          <n-switch :value="pinia_settingStore.isScrollWheelZoom" @click="pinia_settingStore.switchScrollWheelZoom()"/>
+          <n-switch
+            :value="pinia_settingStore.isScrollWheelZoom"
+            @click="pinia_settingStore.switchScrollWheelZoom()"
+          />
         </div>
         <n-divider />
         <!--        是否启用地图拖拽-->
         <div class="flex flex-row items-center justify-between">
           <div>是否启用双击放大</div>
-          <n-switch :value="pinia_settingStore.isDoubleClickZoom" @click="pinia_settingStore.switchDoubleClickZoom()"/>
+          <n-switch
+            :value="pinia_settingStore.isDoubleClickZoom"
+            @click="pinia_settingStore.switchDoubleClickZoom()"
+          />
         </div>
         <n-divider />
         <!--        是否启用键盘操作-->
         <div class="flex flex-row items-center justify-between">
           <div>是否启用键盘操作</div>
-          <n-switch :value="pinia_settingStore.isKeyboard" @click="pinia_settingStore.switchKeyboard()"/>
+          <n-switch
+            :value="pinia_settingStore.isKeyboard"
+            @click="pinia_settingStore.switchKeyboard()"
+          />
         </div>
         <n-divider />
         <!--        是否启用惯性拖拽-->
         <div class="flex flex-row items-center justify-between">
           <div>是否启用惯性拖拽</div>
-          <n-switch :value="pinia_settingStore.isInertia" @click="pinia_settingStore.switchInertia()"/>
+          <n-switch
+            :value="pinia_settingStore.isInertia"
+            @click="pinia_settingStore.switchInertia()"
+          />
         </div>
         <n-divider />
         <!--        是否启用连续缩放-->
         <div class="flex flex-row items-center justify-between">
           <div>是否启用连续缩放</div>
-          <n-switch :value="pinia_settingStore.isContinuousZoom" @click="pinia_settingStore.switchContinuousZoom()"/>
+          <n-switch
+            :value="pinia_settingStore.isContinuousZoom"
+            @click="pinia_settingStore.switchContinuousZoom()"
+          />
         </div>
         <n-divider />
         <!--        是否启用双指缩放-->
         <div class="flex flex-row items-center justify-between">
           <div>是否启用双指缩放</div>
-          <n-switch :value="pinia_settingStore.isPinchToZoom" @click="pinia_settingStore.switchPinchToZoom()"/>
+          <n-switch
+            :value="pinia_settingStore.isPinchToZoom"
+            @click="pinia_settingStore.switchPinchToZoom()"
+          />
         </div>
-
+        <n-divider />
+        <!--        是否启用自动适应容器尺寸-->
+        <div class="flex flex-row items-center justify-between">
+          <div>是否启用自动适应容器尺寸</div>
+          <n-switch
+            :value="pinia_settingStore.isAutoResize"
+            @click="pinia_settingStore.switchAutoResize()"
+          />
+        </div>
       </div>
     </n-drawer-content>
   </n-drawer>
