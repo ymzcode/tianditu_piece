@@ -38,6 +38,12 @@ const pinia_settingStore = useSettingStore()
           <div>是否启用双击放大</div>
           <n-switch :value="pinia_settingStore.isDoubleClickZoom" @click="pinia_settingStore.switchDoubleClickZoom()"/>
         </div>
+        <n-divider />
+        <!--        是否启用键盘操作-->
+        <div class="flex flex-row items-center justify-between">
+          <div>是否启用键盘操作</div>
+          <n-switch :value="pinia_settingStore.isKeyboard" @click="pinia_settingStore.switchKeyboard()"/>
+        </div>
       </div>
     </n-drawer-content>
   </n-drawer>

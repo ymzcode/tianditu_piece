@@ -9,6 +9,8 @@ export const useSettingStore = defineStore("setting", {
     isScrollWheelZoom: true,
     // 是否启用双击放大
     isDoubleClickZoom: true,
+    // 是否启用键盘操作
+    isKeyboard: true,
   }),
   actions: {
     // 开关地图拖拽
@@ -44,6 +46,15 @@ export const useSettingStore = defineStore("setting", {
       this.isDoubleClickZoom
         ? Tmap.enableDoubleClickZoom()
         : Tmap.disableDoubleClickZoom();
+    },
+    switchKeyboard(flag) {
+      const { Tmap } = useTiandituStore();
+      if (flag == null) {
+        this.isKeyboard = !this.isKeyboard;
+      } else {
+        this.isKeyboard = flag;
+      }
+      this.isKeyboard ? Tmap.enableKeyboard() : Tmap.disableKeyboard();
     },
   },
 });
