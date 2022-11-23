@@ -147,7 +147,7 @@ export const useSettingStore = defineStore("setting", {
       copyControl.addCopyright({
         id: 1,
         content:
-          "<a href='https://github.com/ymzcode/tianditu_piece' target='_blank'>联系我：GitHub</a>",
+          "<a href='https://github.com/ymzcode/tianditu_piece' target='_blank'>关于我：GitHub</a>",
         bounds: bs,
       });
     },
