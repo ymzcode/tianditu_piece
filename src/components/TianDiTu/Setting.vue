@@ -32,6 +32,12 @@ const pinia_settingStore = useSettingStore()
           <div>是否启用滚轮放大缩小</div>
           <n-switch :value="pinia_settingStore.isScrollWheelZoom" @click="pinia_settingStore.switchScrollWheelZoom()"/>
         </div>
+        <n-divider />
+        <!--        是否启用地图拖拽-->
+        <div class="flex flex-row items-center justify-between">
+          <div>是否启用双击放大</div>
+          <n-switch :value="pinia_settingStore.isDoubleClickZoom" @click="pinia_settingStore.switchDoubleClickZoom()"/>
+        </div>
       </div>
     </n-drawer-content>
   </n-drawer>

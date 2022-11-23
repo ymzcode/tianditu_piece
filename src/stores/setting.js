@@ -7,6 +7,8 @@ export const useSettingStore = defineStore("setting", {
     isEnableDrag: true,
     // 是否启用滚轮放大缩小
     isScrollWheelZoom: true,
+    // 是否启用双击放大
+    isDoubleClickZoom: true,
   }),
   actions: {
     // 开关地图拖拽
@@ -30,6 +32,18 @@ export const useSettingStore = defineStore("setting", {
       this.isScrollWheelZoom
         ? Tmap.enableScrollWheelZoom()
         : Tmap.disableScrollWheelZoom();
+    },
+    // 开关双击放大
+    switchDoubleClickZoom(flag) {
+      const { Tmap } = useTiandituStore();
+      if (flag == null) {
+        this.isDoubleClickZoom = !this.isDoubleClickZoom;
+      } else {
+        this.isDoubleClickZoom = flag;
+      }
+      this.isDoubleClickZoom
+        ? Tmap.enableDoubleClickZoom()
+        : Tmap.disableDoubleClickZoom();
     },
   },
 });
