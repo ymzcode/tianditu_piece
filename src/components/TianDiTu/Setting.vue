@@ -50,6 +50,12 @@ const pinia_settingStore = useSettingStore()
           <div>是否启用惯性拖拽</div>
           <n-switch :value="pinia_settingStore.isInertia" @click="pinia_settingStore.switchInertia()"/>
         </div>
+        <n-divider />
+        <!--        是否启用连续缩放-->
+        <div class="flex flex-row items-center justify-between">
+          <div>是否启用连续缩放</div>
+          <n-switch :value="pinia_settingStore.isContinuousZoom" @click="pinia_settingStore.switchContinuousZoom()"/>
+        </div>
 
       </div>
     </n-drawer-content>

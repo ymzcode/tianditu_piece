@@ -12,7 +12,9 @@ export const useSettingStore = defineStore("setting", {
     // 是否启用键盘操作
     isKeyboard: true,
     // 是否启用惯性操作
-    isInertia: true
+    isInertia: true,
+    // 是否启用连续缩放
+    isContinuousZoom: true
   }),
   actions: {
     // 开关地图拖拽
@@ -66,6 +68,15 @@ export const useSettingStore = defineStore("setting", {
         this.isInertia = flag;
       }
       this.isInertia ? Tmap.enableInertia() : Tmap.disableInertia();
+    },
+    switchContinuousZoom(flag) {
+      const { Tmap } = useTiandituStore();
+      if (flag == null) {
+        this.isContinuousZoom = !this.isContinuousZoom;
+      } else {
+        this.isContinuousZoom = flag;
+      }
+      this.isContinuousZoom ? Tmap.enableContinuousZoom() : Tmap.disableContinuousZoom();
     }
   },
 });
