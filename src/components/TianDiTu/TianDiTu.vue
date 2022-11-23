@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import { tianditu_token } from "@/config/index";
 import { useTiandituStore } from "@/stores/tianditu";
+import { useSettingStore } from "@/stores/setting";
 
 onMounted(() => {
   loadJs(`https://api.tianditu.gov.cn/api?v=4.0&tk=${tianditu_token}`).then(
@@ -9,7 +10,9 @@ onMounted(() => {
       // 创建地图视图，初始化
       const map = new window.T.Map("mapTian");
       const pinia_useTiandituStore = useTiandituStore();
+      const pinia_useSettingStore = useSettingStore();
       pinia_useTiandituStore.initTmap(map);
+      pinia_useSettingStore.initSetting();
     }
   );
 });
@@ -33,11 +36,7 @@ function loadJs(src) {
 </script>
 
 <template>
-  <div
-    id="mapTian"
-    class="w-full h-full"
-  ></div>
+  <div id="mapTian" class="w-full h-full"></div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

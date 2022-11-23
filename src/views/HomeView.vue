@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from "vue";
 import TianDiTu from "@/components/TianDiTu/TianDiTu.vue";
 import Setting from "@/components/TianDiTu/Setting.vue"
 </script>

@@ -3,6 +3,7 @@ import { useTiandituStore } from "@/stores/tianditu";
 
 export const useSettingStore = defineStore("setting", {
   state: () => ({
+    // ------------地图属性开关--------------
     // 是否启用地图拖拽
     isEnableDrag: true,
     // 是否启用滚轮放大缩小
@@ -19,8 +20,16 @@ export const useSettingStore = defineStore("setting", {
     isPinchToZoom: true,
     // 是否启用自动适应容器尺寸
     isAutoResize: true,
+    // ------------控件相关--------------
+    // 是否展示版权控件
+    isShowCopyright: true,
   }),
   actions: {
+    /*
+     * 初始化设置*/
+    initSetting() {
+      this.createCopyright();
+    },
     // 开关地图拖拽
     switchEnableDrag(flag) {
       const { Tmap } = useTiandituStore();
@@ -101,6 +110,46 @@ export const useSettingStore = defineStore("setting", {
         this.isAutoResize = flag;
       }
       this.isAutoResize ? Tmap.enableAutoResize() : Tmap.disableAutoResize();
+    },
+    switchShowCopyright(flag) {
+      const { Tmap, mapControl } = useTiandituStore();
+      // 检查当前是否存在版权控件对象
+      if (!mapControl["github"]) {
+        throw new Error("当前版权控件已经销毁，请重新生成！");
+      }
+      if (flag == null) {
+        this.isShowCopyright = !this.isShowCopyright;
+      } else {
+        this.isShowCopyright = flag;
+      }
+      if (this.isShowCopyright) {
+        mapControl["github"].show();
+      } else {
+        mapControl["github"].hide();
+      }
+    },
+    /*
+     * 销毁版权控件*/
+    removeCopyright() {
+      const { removeControl } = useTiandituStore();
+      removeControl("github");
+    },
+    /*
+     * 创建版权控件*/
+    createCopyright() {
+      const { Tmap, addControl } = useTiandituStore();
+      const copyControl = new window.T.Control.Copyright({
+        position: window.T_ANCHOR_TOP_LEFT,
+      });
+      addControl("github", copyControl);
+
+      const bs = Tmap.getBounds(); //返回地图可视区域
+      copyControl.addCopyright({
+        id: 1,
+        content:
+          "<a href='https://github.com/ymzcode/tianditu_piece' target='_blank'>联系我：GitHub</a>",
+        bounds: bs,
+      });
     },
   },
 });
