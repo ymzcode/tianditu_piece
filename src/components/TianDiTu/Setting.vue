@@ -56,6 +56,12 @@ const pinia_settingStore = useSettingStore()
           <div>是否启用连续缩放</div>
           <n-switch :value="pinia_settingStore.isContinuousZoom" @click="pinia_settingStore.switchContinuousZoom()"/>
         </div>
+        <n-divider />
+        <!--        是否启用双指缩放-->
+        <div class="flex flex-row items-center justify-between">
+          <div>是否启用双指缩放</div>
+          <n-switch :value="pinia_settingStore.isPinchToZoom" @click="pinia_settingStore.switchPinchToZoom()"/>
+        </div>
 
       </div>
     </n-drawer-content>

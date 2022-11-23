@@ -14,7 +14,9 @@ export const useSettingStore = defineStore("setting", {
     // 是否启用惯性操作
     isInertia: true,
     // 是否启用连续缩放
-    isContinuousZoom: true
+    isContinuousZoom: true,
+    // 是否启用双指缩放
+    isPinchToZoom: true
   }),
   actions: {
     // 开关地图拖拽
@@ -77,6 +79,15 @@ export const useSettingStore = defineStore("setting", {
         this.isContinuousZoom = flag;
       }
       this.isContinuousZoom ? Tmap.enableContinuousZoom() : Tmap.disableContinuousZoom();
+    },
+    switchPinchToZoom(flag) {
+      const { Tmap } = useTiandituStore();
+      if (flag == null) {
+        this.isPinchToZoom = !this.isPinchToZoom;
+      } else {
+        this.isPinchToZoom = flag;
+      }
+      this.isPinchToZoom ? Tmap.enablePinchToZoom() : Tmap.disablePinchToZoom();
     }
   },
 });
