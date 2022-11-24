@@ -1,35 +1,20 @@
-# project
+# 介绍
 
-This template should help get you started developing with Vue 3 in Vite.
+tianditu_piece是一个整合了天地图JavaScript API 4.0各种功能的项目，目前来说还算不上框架。目前更多的是演示功能的可行性，但会以此为目标逐步改进。
 
-## Recommended IDE Setup
+关于天地图JavaScript API 4.0的更多介绍可以查看: [天地图官网](http://lbs.tianditu.gov.cn/api/js4.0/guide.html)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+项目使用vue3，node18.12.1作为开发环境，选用tailwind、NaiveUi。使用Pinia作为存储库。
 
-## Customize configuration
+# 各依赖项
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- [tailwind](https://tailwindcss.com/docs/installation/framework-guides)
+- [NaiveUi](https://www.naiveui.com/zh-CN/os-theme)
+- [Pinia](https://pinia.web3doc.top/introduction.html)
 
-## Project Setup
 
-```sh
-npm install
-```
+# 演示地址
 
-### Compile and Hot-Reload for Development
+https://ymzcode.github.io/tianditu_piece/
 
-```sh
-npm run dev
-```
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
