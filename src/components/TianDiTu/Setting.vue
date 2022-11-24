@@ -104,6 +104,18 @@ const pinia_settingStore = useSettingStore();
             </div>
           </n-collapse-item>
           <n-collapse-item title="控件相关" name="2">
+            <!--        变量说明-->
+            <div class="flex flex-row items-center justify-between">
+              <div class="flex flex-col setting-item-left">
+                <div class="item-title">当前已经将所有控件挂载</div>
+                <div class="text-xs text-gray-500">
+                  你可以在控制台使用例如：window.$mapControl['scaleControl'].setColor('blue')
+                  来改变比例尺的颜色。
+                </div>
+              </div>
+              <div>window.$mapControl</div>
+            </div>
+            <n-divider />
             <!--        是否显示左上角版权控件-->
             <div class="flex flex-row items-center justify-between">
               <div class="flex flex-col setting-item-left">

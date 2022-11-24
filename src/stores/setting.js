@@ -192,7 +192,6 @@ export const useSettingStore = defineStore("setting", {
         zoomOutText: "🔽",
       });
       addControl("zoomControl", copyControl);
-      console.log(copyControl);
     },
     switchScaleControl(flag) {
       const { Tmap, mapControl } = useTiandituStore();
