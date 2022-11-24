@@ -23,12 +23,15 @@ export const useSettingStore = defineStore("setting", {
     // ------------控件相关--------------
     // 是否展示版权控件
     isShowCopyright: true,
+    // 是否展示缩放控件
+    isShowZoomControl: true,
   }),
   actions: {
     /*
      * 初始化设置*/
     initSetting() {
       this.createCopyright();
+      this.createZoomControl();
     },
     // 开关地图拖拽
     switchEnableDrag(flag) {
@@ -150,6 +153,38 @@ export const useSettingStore = defineStore("setting", {
           "<a href='https://github.com/ymzcode/tianditu_piece' target='_blank'>关于我：GitHub</a>",
         bounds: bs,
       });
+    },
+    switchZoomControl(flag) {
+      const { Tmap, mapControl } = useTiandituStore();
+      // 检查当前是否存在对象
+      if (!mapControl["zoomControl"]) {
+        throw new Error("当前控件已经销毁，请重新生成！");
+      }
+      if (flag == null) {
+        this.isShowZoomControl = !this.isShowZoomControl;
+      } else {
+        this.isShowZoomControl = flag;
+      }
+      if (this.isShowZoomControl) {
+        mapControl["zoomControl"].show();
+      } else {
+        mapControl["zoomControl"].hide();
+      }
+    },
+    /*
+     * 销毁缩放*/
+    removeZoomControl() {
+      const { removeControl } = useTiandituStore();
+      removeControl("zoomControl");
+    },
+    /*
+     * 创建缩放*/
+    createZoomControl() {
+      const { Tmap, addControl } = useTiandituStore();
+      const copyControl = new window.T.Control.Zoom({
+        position: window.T_ANCHOR_TOP_LEFT,
+      });
+      addControl("zoomControl", copyControl);
     },
   },
 });

@@ -104,12 +104,12 @@ const pinia_settingStore = useSettingStore();
             </div>
           </n-collapse-item>
           <n-collapse-item title="控件相关" name="2">
-            <!--        是否启用地图拖拽-->
+            <!--        是否显示左上角版权控件-->
             <div class="flex flex-row items-center justify-between">
               <div class="flex flex-col setting-item-left">
                 <div class="item-title">是否显示左上角版权控件</div>
                 <div class="text-xs text-gray-500">
-                  当前开关控制的是显隐，并没有销毁控件当前开关控制的是显隐
+                  当前开关控制的是显隐，并不是销毁控件
                 </div>
               </div>
               <div>
@@ -128,6 +128,34 @@ const pinia_settingStore = useSettingStore();
                   type="warning"
                   @click="pinia_settingStore.removeCopyright()"
                   >销毁</n-button
+                >
+              </div>
+            </div>
+            <n-divider />
+            <!--        是否显示缩放控件-->
+            <div class="flex flex-row items-center justify-between">
+              <div class="flex flex-col setting-item-left">
+                <div class="item-title">是否显示缩放控件</div>
+                <div class="text-xs text-gray-500">
+                  当前开关控制的是显隐，并不是销毁控件
+                </div>
+              </div>
+              <div>
+                <n-switch
+                    :value="pinia_settingStore.isShowZoomControl"
+                    @click="pinia_settingStore.switchZoomControl()"
+                />
+                <n-button
+                    class="ml-2"
+                    type="primary"
+                    @click="pinia_settingStore.createZoomControl()"
+                >生成</n-button
+                >
+                <n-button
+                    class="ml-2"
+                    type="warning"
+                    @click="pinia_settingStore.removeZoomControl()"
+                >销毁</n-button
                 >
               </div>
             </div>
