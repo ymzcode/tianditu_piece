@@ -199,6 +199,7 @@ const pinia_settingStore = useSettingStore();
                 >
               </div>
             </div>
+            <n-divider />
           </n-collapse-item>
         </n-collapse>
       </div>
