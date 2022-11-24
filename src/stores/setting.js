@@ -25,13 +25,18 @@ export const useSettingStore = defineStore("setting", {
     isShowCopyright: true,
     // 是否展示缩放控件
     isShowZoomControl: true,
+    // 是否展示比例尺
+    isShowScaleControl: true,
   }),
   actions: {
     /*
      * 初始化设置*/
     initSetting() {
+      const { mapControl } = useTiandituStore();
       this.createCopyright();
       this.createZoomControl();
+      this.createScaleControl();
+      window.$mapControl = mapControl
     },
     // 开关地图拖拽
     switchEnableDrag(flag) {
@@ -183,8 +188,40 @@ export const useSettingStore = defineStore("setting", {
       const { Tmap, addControl } = useTiandituStore();
       const copyControl = new window.T.Control.Zoom({
         position: window.T_ANCHOR_TOP_LEFT,
+        zoomInText: "🔼",
+        zoomOutText: "🔽",
       });
       addControl("zoomControl", copyControl);
+      console.log(copyControl);
+    },
+    switchScaleControl(flag) {
+      const { Tmap, mapControl } = useTiandituStore();
+      // 检查当前是否存在对象
+      if (!mapControl["scaleControl"]) {
+        throw new Error("当前控件已经销毁，请重新生成！");
+      }
+      if (flag == null) {
+        this.isShowScaleControl = !this.isShowScaleControl;
+      } else {
+        this.isShowScaleControl = flag;
+      }
+      this.isShowScaleControl
+        ? mapControl["scaleControl"].show()
+        : mapControl["scaleControl"].hide();
+    },
+    /*
+     * 销毁比例尺*/
+    removeScaleControl() {
+      const { removeControl } = useTiandituStore();
+      removeControl("scaleControl");
+    },
+    /*
+     * 创建比例尺*/
+    createScaleControl() {
+      const { Tmap, addControl } = useTiandituStore();
+      const copyControl = new window.T.Control.Scale();
+      addControl("scaleControl", copyControl);
+      copyControl.setColor("red");
     },
   },
 });
