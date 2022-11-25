@@ -200,6 +200,34 @@ const pinia_settingStore = useSettingStore();
               </div>
             </div>
             <n-divider />
+            <!--        是否显示鹰眼图-->
+            <div class="flex flex-row items-center justify-between">
+              <div class="flex flex-col setting-item-left">
+                <div class="item-title">是否显示鹰眼图</div>
+                <div class="text-xs text-gray-500">
+                  当前开关控制的是显隐，并不是销毁控件
+                </div>
+              </div>
+              <div>
+                <n-switch
+                    :value="pinia_settingStore.isShowOverviewMap"
+                    @click="pinia_settingStore.switchOverviewMap()"
+                />
+                <n-button
+                    class="ml-2"
+                    type="primary"
+                    @click="pinia_settingStore.createOverviewMap()"
+                >生成</n-button
+                >
+                <n-button
+                    class="ml-2"
+                    type="warning"
+                    @click="pinia_settingStore.removeOverviewMap()"
+                >销毁</n-button
+                >
+              </div>
+            </div>
+            <n-divider />
           </n-collapse-item>
         </n-collapse>
       </div>

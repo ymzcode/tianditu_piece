@@ -27,6 +27,8 @@ export const useSettingStore = defineStore("setting", {
     isShowZoomControl: true,
     // 是否展示比例尺
     isShowScaleControl: true,
+    // 是否展示鹰眼控件
+    isShowOverviewMap: true
   }),
   actions: {
     /*
@@ -36,7 +38,8 @@ export const useSettingStore = defineStore("setting", {
       this.createCopyright();
       this.createZoomControl();
       this.createScaleControl();
-      window.$mapControl = mapControl
+      this.createOverviewMap()
+      window.$mapControl = mapControl;
     },
     // 开关地图拖拽
     switchEnableDrag(flag) {
@@ -221,6 +224,41 @@ export const useSettingStore = defineStore("setting", {
       const copyControl = new window.T.Control.Scale();
       addControl("scaleControl", copyControl);
       copyControl.setColor("red");
+    },
+    switchOverviewMap(flag) {
+      const { Tmap, mapControl } = useTiandituStore();
+      // 检查当前是否存在对象
+      if (!mapControl["overviewMap"]) {
+        throw new Error("当前控件已经销毁，请重新生成！");
+      }
+      if (flag == null) {
+        this.isShowOverviewMap = !this.isShowOverviewMap;
+      } else {
+        this.isShowOverviewMap = flag;
+      }
+      this.isShowOverviewMap
+          ? mapControl["overviewMap"].show()
+          : mapControl["overviewMap"].hide();
+    },
+    /*
+     * 销毁鹰眼图*/
+    removeOverviewMap() {
+      const { removeControl } = useTiandituStore();
+      removeControl("overviewMap");
+    },
+    /*
+     * 创建鹰眼图*/
+    createOverviewMap() {
+      const { Tmap, addControl } = useTiandituStore();
+      const copyControl = new window.T.Control.OverviewMap({
+        isOpen: true,
+        size: new window.T.Point(150, 150)
+      });
+      addControl("overviewMap", copyControl);
+      copyControl.setButtonImage('https://pic.imgdb.cn/item/638023dd16f2c2beb116df53.png', 'https://pic.imgdb.cn/item/638023dd16f2c2beb116df4e.png')
+      copyControl.setBorderColor('blue')
+      copyControl.setRectBackColor('pink')
+      copyControl.setRectBorderColor('#000000')
     },
   },
 });
