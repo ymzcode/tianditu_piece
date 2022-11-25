@@ -28,7 +28,9 @@ export const useSettingStore = defineStore("setting", {
     // 是否展示比例尺
     isShowScaleControl: true,
     // 是否展示鹰眼控件
-    isShowOverviewMap: true
+    isShowOverviewMap: true,
+    // 是否显示地图类型
+    isShowMapTypeControl: true,
   }),
   actions: {
     /*
@@ -38,7 +40,8 @@ export const useSettingStore = defineStore("setting", {
       this.createCopyright();
       this.createZoomControl();
       this.createScaleControl();
-      this.createOverviewMap()
+      this.createOverviewMap();
+      this.createMapTypeControl();
       window.$mapControl = mapControl;
     },
     // 开关地图拖拽
@@ -246,8 +249,8 @@ export const useSettingStore = defineStore("setting", {
         this.isShowOverviewMap = flag;
       }
       this.isShowOverviewMap
-          ? mapControl["overviewMap"].show()
-          : mapControl["overviewMap"].hide();
+        ? mapControl["overviewMap"].show()
+        : mapControl["overviewMap"].hide();
     },
     /*
      * 销毁鹰眼图*/
@@ -261,13 +264,41 @@ export const useSettingStore = defineStore("setting", {
       const { Tmap, addControl } = useTiandituStore();
       const copyControl = new window.T.Control.OverviewMap({
         isOpen: true,
-        size: new window.T.Point(150, 150)
+        size: new window.T.Point(150, 150),
       });
       addControl("overviewMap", copyControl);
-      copyControl.setButtonImage('https://pic.imgdb.cn/item/638023dd16f2c2beb116df53.png', 'https://pic.imgdb.cn/item/638023dd16f2c2beb116df4e.png')
-      copyControl.setBorderColor('blue')
-      copyControl.setRectBackColor('pink')
-      copyControl.setRectBorderColor('#000000')
+      copyControl.setBorderColor("blue");
+      copyControl.setRectBackColor("pink");
+      copyControl.setRectBorderColor("#000000");
+    },
+    // 开关地图类型
+    switchMapTypeControl(flag) {
+      const { Tmap, mapControl } = useTiandituStore();
+      // 检查当前是否存在对象
+      if (!mapControl["mapTypeControl"]) {
+        throw new Error("当前控件已经销毁，请重新生成！");
+      }
+      if (flag == null) {
+        this.isShowMapTypeControl = !this.isShowMapTypeControl;
+      } else {
+        this.isShowMapTypeControl = flag;
+      }
+      this.isShowMapTypeControl
+        ? mapControl["mapTypeControl"].show()
+        : mapControl["mapTypeControl"].hide();
+    },
+    /*
+     * 销毁地图类型*/
+    removeMapTypeControl() {
+      const { removeControl } = useTiandituStore();
+      removeControl("mapTypeControl");
+    },
+    /*
+     * 创建地图类型*/
+    createMapTypeControl() {
+      const { Tmap, addControl } = useTiandituStore();
+      const copyControl = new window.T.Control.MapType();
+      addControl("mapTypeControl", copyControl);
     },
   },
 });

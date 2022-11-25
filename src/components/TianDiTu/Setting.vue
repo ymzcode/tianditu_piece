@@ -15,7 +15,7 @@ const pinia_settingStore = useSettingStore();
   <div
     v-if="!isShowModel"
     @click="isShowModel = true"
-    class="fixed right-3 top-1/2 rounded-full cursor-pointer p-2 bg-blue-300 text-white"
+    class="fixed right-3 top-1/2 rounded-full cursor-pointer p-2 bg-black text-white"
     style="z-index: 9999"
   >
     设置
