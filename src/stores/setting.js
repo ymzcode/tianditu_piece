@@ -31,6 +31,8 @@ export const useSettingStore = defineStore("setting", {
     isShowOverviewMap: true,
     // 是否显示地图类型
     isShowMapTypeControl: true,
+    // 是否显示符号标绘控件
+    isShowMilitarySymbols: true,
   }),
   actions: {
     /*
@@ -42,6 +44,7 @@ export const useSettingStore = defineStore("setting", {
       this.createScaleControl();
       this.createOverviewMap();
       this.createMapTypeControl();
+      this.createMilitarySymbols();
       window.$mapControl = mapControl;
     },
     // 开关地图拖拽
@@ -299,6 +302,37 @@ export const useSettingStore = defineStore("setting", {
       const { Tmap, addControl } = useTiandituStore();
       const copyControl = new window.T.Control.MapType();
       addControl("mapTypeControl", copyControl);
+    },
+    // 开关符号标绘
+    switchMilitarySymbols(flag) {
+      const { Tmap, mapControl } = useTiandituStore();
+      // 检查当前是否存在对象
+      if (!mapControl["militarySymbols"]) {
+        throw new Error("当前控件已经销毁，请重新生成！");
+      }
+      if (flag == null) {
+        this.isShowMilitarySymbols = !this.isShowMilitarySymbols;
+      } else {
+        this.isShowMilitarySymbols = flag;
+      }
+      this.isShowMilitarySymbols
+        ? mapControl["militarySymbols"].show()
+        : mapControl["militarySymbols"].hide();
+    },
+    /*
+     * 销毁符号标绘*/
+    removeMilitarySymbols() {
+      const { removeControl } = useTiandituStore();
+      removeControl("militarySymbols");
+    },
+    /*
+     * 创建符号标绘*/
+    createMilitarySymbols() {
+      const { Tmap, addControl } = useTiandituStore();
+      const copyControl = new window.T.Control.militarySymbols({
+        position: window.T_ANCHOR_TOP_LEFT,
+      });
+      addControl("militarySymbols", copyControl);
     },
   },
 });
