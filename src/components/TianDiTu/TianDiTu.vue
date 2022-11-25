@@ -9,6 +9,8 @@ onMounted(() => {
     (res) => {
       // 创建地图视图，初始化
       const map = new window.T.Map("mapTian");
+      // 在window注册map，用于支持标绘控件
+      window.map = map;
       const pinia_useTiandituStore = useTiandituStore();
       const pinia_useSettingStore = useSettingStore();
       pinia_useTiandituStore.initTmap(map);
