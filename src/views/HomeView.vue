@@ -1,8 +1,6 @@
 <script setup>
 import TianDiTu from "@/components/TianDiTu/TianDiTu.vue";
-import Setting from "@/components/TianDiTu/Setting.vue"
-import { useMessage } from 'naive-ui'
-window.$message = useMessage()
+import Setting from "@/components/TianDiTu/Setting.vue";
 
 createListener();
 
@@ -19,7 +17,7 @@ function createListener() {
 
 <template>
   <main>
-    <div class="absolute w-full h-full ">
+    <div class="absolute w-full h-full">
       <tian-di-tu></tian-di-tu>
       <setting></setting>
     </div>
