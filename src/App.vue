@@ -2,6 +2,9 @@
 import { RouterView } from "vue-router";
 import { NMessageProvider, NConfigProvider } from "naive-ui";
 import MessageApi from "@/components/MessageApi/MessageApi.vue";
+import { version } from '@/config'
+
+console.log(`RUN VERSION : ${version}`)
 </script>
 
 <template>
