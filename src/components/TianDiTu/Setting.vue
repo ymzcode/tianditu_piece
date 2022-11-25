@@ -1,15 +1,9 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import {
-  NDrawer,
-  NDrawerContent,
-  NSwitch,
-  NDivider,
-  NCollapse,
-  NCollapseItem,
-  NButton,
-} from "naive-ui";
+import { NDrawer, NDrawerContent, NCollapse, NCollapseItem } from "naive-ui";
 import { useSettingStore } from "@/stores/setting";
+import ControlOptions from "@/components/SettingItems/ControlOptions.vue";
+import MapOptions from "@/components/SettingItems/MapOptions.vue";
 
 // 展示抽屉
 const isShowModel = ref(false);
@@ -31,203 +25,12 @@ const pinia_settingStore = useSettingStore();
       <div class="flex flex-col">
         <n-collapse :default-expanded-names="['1']">
           <n-collapse-item title="地图属性控制" name="1">
-            <!--        是否启用地图拖拽-->
-            <div class="flex flex-row items-center justify-between">
-              <div class="item-title">是否启用地图拖拽</div>
-              <n-switch
-                :value="pinia_settingStore.isEnableDrag"
-                @click="pinia_settingStore.switchEnableDrag()"
-              />
-            </div>
-            <n-divider />
-            <!--        是否启用地图拖拽-->
-            <div class="flex flex-row items-center justify-between">
-              <div class="item-title">是否启用滚轮放大缩小</div>
-              <n-switch
-                :value="pinia_settingStore.isScrollWheelZoom"
-                @click="pinia_settingStore.switchScrollWheelZoom()"
-              />
-            </div>
-            <n-divider />
-            <!--        是否启用地图拖拽-->
-            <div class="flex flex-row items-center justify-between">
-              <div class="item-title">是否启用双击放大</div>
-              <n-switch
-                :value="pinia_settingStore.isDoubleClickZoom"
-                @click="pinia_settingStore.switchDoubleClickZoom()"
-              />
-            </div>
-            <n-divider />
-            <!--        是否启用键盘操作-->
-            <div class="flex flex-row items-center justify-between">
-              <div class="item-title">是否启用键盘操作</div>
-              <n-switch
-                :value="pinia_settingStore.isKeyboard"
-                @click="pinia_settingStore.switchKeyboard()"
-              />
-            </div>
-            <n-divider />
-            <!--        是否启用惯性拖拽-->
-            <div class="flex flex-row items-center justify-between">
-              <div class="item-title">是否启用惯性拖拽</div>
-              <n-switch
-                :value="pinia_settingStore.isInertia"
-                @click="pinia_settingStore.switchInertia()"
-              />
-            </div>
-            <n-divider />
-            <!--        是否启用连续缩放-->
-            <div class="flex flex-row items-center justify-between">
-              <div class="item-title">是否启用连续缩放</div>
-              <n-switch
-                :value="pinia_settingStore.isContinuousZoom"
-                @click="pinia_settingStore.switchContinuousZoom()"
-              />
-            </div>
-            <n-divider />
-            <!--        是否启用双指缩放-->
-            <div class="flex flex-row items-center justify-between">
-              <div class="item-title">是否启用双指缩放</div>
-              <n-switch
-                :value="pinia_settingStore.isPinchToZoom"
-                @click="pinia_settingStore.switchPinchToZoom()"
-              />
-            </div>
-            <n-divider />
-            <!--        是否启用自动适应容器尺寸-->
-            <div class="flex flex-row items-center justify-between">
-              <div class="item-title">是否启用自动适应容器尺寸</div>
-              <n-switch
-                :value="pinia_settingStore.isAutoResize"
-                @click="pinia_settingStore.switchAutoResize()"
-              />
-            </div>
+            <!--            地图选项组件-->
+            <map-options></map-options>
           </n-collapse-item>
           <n-collapse-item title="控件相关" name="2">
-            <!--        变量说明-->
-            <div class="flex flex-row items-center justify-between">
-              <div class="flex flex-col setting-item-left">
-                <div class="item-title">当前已经将所有控件挂载</div>
-                <div class="text-xs text-gray-500">
-                  你可以在控制台使用例如：window.$mapControl['scaleControl'].setColor('blue')
-                  来改变比例尺的颜色。
-                </div>
-              </div>
-              <div>window.$mapControl</div>
-            </div>
-            <n-divider />
-            <!--        是否显示左上角版权控件-->
-            <div class="flex flex-row items-center justify-between">
-              <div class="flex flex-col setting-item-left">
-                <div class="item-title">是否显示左上角版权控件</div>
-                <div class="text-xs text-gray-500">
-                  当前开关控制的是显隐，并不是销毁控件
-                </div>
-              </div>
-              <div>
-                <n-switch
-                  :value="pinia_settingStore.isShowCopyright"
-                  @click="pinia_settingStore.switchShowCopyright()"
-                />
-                <n-button
-                  class="ml-2"
-                  type="primary"
-                  @click="pinia_settingStore.createCopyright()"
-                  >生成</n-button
-                >
-                <n-button
-                  class="ml-2"
-                  type="warning"
-                  @click="pinia_settingStore.removeCopyright()"
-                  >销毁</n-button
-                >
-              </div>
-            </div>
-            <n-divider />
-            <!--        是否显示缩放控件-->
-            <div class="flex flex-row items-center justify-between">
-              <div class="flex flex-col setting-item-left">
-                <div class="item-title">是否显示缩放控件</div>
-                <div class="text-xs text-gray-500">
-                  当前开关控制的是显隐，并不是销毁控件
-                </div>
-              </div>
-              <div>
-                <n-switch
-                  :value="pinia_settingStore.isShowZoomControl"
-                  @click="pinia_settingStore.switchZoomControl()"
-                />
-                <n-button
-                  class="ml-2"
-                  type="primary"
-                  @click="pinia_settingStore.createZoomControl()"
-                  >生成</n-button
-                >
-                <n-button
-                  class="ml-2"
-                  type="warning"
-                  @click="pinia_settingStore.removeZoomControl()"
-                  >销毁</n-button
-                >
-              </div>
-            </div>
-            <n-divider />
-            <!--        是否显示比例尺-->
-            <div class="flex flex-row items-center justify-between">
-              <div class="flex flex-col setting-item-left">
-                <div class="item-title">是否显示比例尺</div>
-                <div class="text-xs text-gray-500">
-                  当前开关控制的是显隐，并不是销毁控件
-                </div>
-              </div>
-              <div>
-                <n-switch
-                  :value="pinia_settingStore.isShowScaleControl"
-                  @click="pinia_settingStore.switchScaleControl()"
-                />
-                <n-button
-                  class="ml-2"
-                  type="primary"
-                  @click="pinia_settingStore.createScaleControl()"
-                  >生成</n-button
-                >
-                <n-button
-                  class="ml-2"
-                  type="warning"
-                  @click="pinia_settingStore.removeScaleControl()"
-                  >销毁</n-button
-                >
-              </div>
-            </div>
-            <n-divider />
-            <!--        是否显示鹰眼图-->
-            <div class="flex flex-row items-center justify-between">
-              <div class="flex flex-col setting-item-left">
-                <div class="item-title">是否显示鹰眼图</div>
-                <div class="text-xs text-gray-500">
-                  当前开关控制的是显隐，并不是销毁控件
-                </div>
-              </div>
-              <div>
-                <n-switch
-                    :value="pinia_settingStore.isShowOverviewMap"
-                    @click="pinia_settingStore.switchOverviewMap()"
-                />
-                <n-button
-                    class="ml-2"
-                    type="primary"
-                    @click="pinia_settingStore.createOverviewMap()"
-                >生成</n-button
-                >
-                <n-button
-                    class="ml-2"
-                    type="warning"
-                    @click="pinia_settingStore.removeOverviewMap()"
-                >销毁</n-button
-                >
-              </div>
-            </div>
-            <n-divider />
+            <!--            控件选项组件-->
+            <control-options></control-options>
           </n-collapse-item>
         </n-collapse>
       </div>
@@ -236,7 +39,5 @@ const pinia_settingStore = useSettingStore();
 </template>
 
 <style scoped>
-.setting-item-left {
-  max-width: 240px;
-}
+
 </style>

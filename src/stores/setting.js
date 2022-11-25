@@ -75,6 +75,7 @@ export const useSettingStore = defineStore("setting", {
         ? Tmap.enableDoubleClickZoom()
         : Tmap.disableDoubleClickZoom();
     },
+    // 开关键盘操作
     switchKeyboard(flag) {
       const { Tmap } = useTiandituStore();
       if (flag == null) {
@@ -84,6 +85,7 @@ export const useSettingStore = defineStore("setting", {
       }
       this.isKeyboard ? Tmap.enableKeyboard() : Tmap.disableKeyboard();
     },
+    // 开关惯性效果
     switchInertia(flag) {
       const { Tmap } = useTiandituStore();
       if (flag == null) {
@@ -93,6 +95,7 @@ export const useSettingStore = defineStore("setting", {
       }
       this.isInertia ? Tmap.enableInertia() : Tmap.disableInertia();
     },
+    // 开关连续缩放
     switchContinuousZoom(flag) {
       const { Tmap } = useTiandituStore();
       if (flag == null) {
@@ -104,6 +107,7 @@ export const useSettingStore = defineStore("setting", {
         ? Tmap.enableContinuousZoom()
         : Tmap.disableContinuousZoom();
     },
+    // 开关双指缩放
     switchPinchToZoom(flag) {
       const { Tmap } = useTiandituStore();
       if (flag == null) {
@@ -113,6 +117,7 @@ export const useSettingStore = defineStore("setting", {
       }
       this.isPinchToZoom ? Tmap.enablePinchToZoom() : Tmap.disablePinchToZoom();
     },
+    // 开关自适应容器
     switchAutoResize(flag) {
       const { Tmap } = useTiandituStore();
       if (flag == null) {
@@ -122,6 +127,7 @@ export const useSettingStore = defineStore("setting", {
       }
       this.isAutoResize ? Tmap.enableAutoResize() : Tmap.disableAutoResize();
     },
+    // 开关版权控件
     switchShowCopyright(flag) {
       const { Tmap, mapControl } = useTiandituStore();
       // 检查当前是否存在版权控件对象
@@ -162,6 +168,7 @@ export const useSettingStore = defineStore("setting", {
         bounds: bs,
       });
     },
+    // 开关缩放控件
     switchZoomControl(flag) {
       const { Tmap, mapControl } = useTiandituStore();
       // 检查当前是否存在对象
@@ -196,6 +203,7 @@ export const useSettingStore = defineStore("setting", {
       });
       addControl("zoomControl", copyControl);
     },
+    // 开关比例尺控件
     switchScaleControl(flag) {
       const { Tmap, mapControl } = useTiandituStore();
       // 检查当前是否存在对象
@@ -225,6 +233,7 @@ export const useSettingStore = defineStore("setting", {
       addControl("scaleControl", copyControl);
       copyControl.setColor("red");
     },
+    // 开关鹰眼图
     switchOverviewMap(flag) {
       const { Tmap, mapControl } = useTiandituStore();
       // 检查当前是否存在对象
