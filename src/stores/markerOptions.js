@@ -1,7 +1,9 @@
 import { defineStore } from "pinia";
-import kindergarten from "@/assets/json/kindergarten-new.json";
 import { useTiandituStore } from "@/stores/tianditu";
-import { nationalKindergarten } from "@/api/mapDataAPi";
+import {
+  localNationalKindergarten,
+  nationalKindergarten,
+} from "@/api/mapDataAPi";
 import { isShowErrorMessage } from "@/config";
 
 export const useMarkerStore = defineStore("markerOptions", {
@@ -20,7 +22,8 @@ export const useMarkerStore = defineStore("markerOptions", {
       let mapData;
       // 判断是否使用本地数据
       if (isUseLocalMapData) {
-        mapData = kindergarten.data;
+        const { data } = await localNationalKindergarten();
+        mapData = data;
       } else {
         const { data } = await nationalKindergarten();
         mapData = data;
@@ -59,8 +62,10 @@ export const useMarkerStore = defineStore("markerOptions", {
         throw new Error("请生成视图之后再播放数据");
       }
       clearInterval(this.kindergartenInterval);
-      this.kindergartenInterval = setInterval(() => {
-        let mapData = kindergarten.data;
+      this.kindergartenInterval = setInterval(async () => {
+        let mapData;
+        const { data } = await localNationalKindergarten();
+        mapData = data;
         // 存放生成的点数据
         let lnglats = [];
         //  设置一个开始分割点  [10 - 180000]
