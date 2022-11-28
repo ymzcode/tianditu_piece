@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useTiandituStore } from "@/stores/tianditu";
+import { isShowErrorMessage } from "@/config";
 
 export const useSettingStore = defineStore("setting", {
   state: () => ({
@@ -138,6 +139,8 @@ export const useSettingStore = defineStore("setting", {
       const { Tmap, mapControl } = useTiandituStore();
       // 检查当前是否存在版权控件对象
       if (!mapControl["github"]) {
+        isShowErrorMessage &&
+          window.$message.error("当前版权控件已经销毁，请重新生成！");
         throw new Error("当前版权控件已经销毁，请重新生成！");
       }
       if (flag == null) {
@@ -179,6 +182,8 @@ export const useSettingStore = defineStore("setting", {
       const { Tmap, mapControl } = useTiandituStore();
       // 检查当前是否存在对象
       if (!mapControl["zoomControl"]) {
+        isShowErrorMessage &&
+          window.$message.error("当前版权控件已经销毁，请重新生成！");
         throw new Error("当前控件已经销毁，请重新生成！");
       }
       if (flag == null) {
@@ -214,6 +219,8 @@ export const useSettingStore = defineStore("setting", {
       const { Tmap, mapControl } = useTiandituStore();
       // 检查当前是否存在对象
       if (!mapControl["scaleControl"]) {
+        isShowErrorMessage &&
+          window.$message.error("当前版权控件已经销毁，请重新生成！");
         throw new Error("当前控件已经销毁，请重新生成！");
       }
       if (flag == null) {
@@ -244,6 +251,8 @@ export const useSettingStore = defineStore("setting", {
       const { Tmap, mapControl } = useTiandituStore();
       // 检查当前是否存在对象
       if (!mapControl["overviewMap"]) {
+        isShowErrorMessage &&
+          window.$message.error("当前版权控件已经销毁，请重新生成！");
         throw new Error("当前控件已经销毁，请重新生成！");
       }
       if (flag == null) {
@@ -279,6 +288,8 @@ export const useSettingStore = defineStore("setting", {
       const { Tmap, mapControl } = useTiandituStore();
       // 检查当前是否存在对象
       if (!mapControl["mapTypeControl"]) {
+        isShowErrorMessage &&
+          window.$message.error("当前版权控件已经销毁，请重新生成！");
         throw new Error("当前控件已经销毁，请重新生成！");
       }
       if (flag == null) {
@@ -308,6 +319,8 @@ export const useSettingStore = defineStore("setting", {
       const { Tmap, mapControl } = useTiandituStore();
       // 检查当前是否存在对象
       if (!mapControl["militarySymbols"]) {
+        isShowErrorMessage &&
+          window.$message.error("当前版权控件已经销毁，请重新生成！");
         throw new Error("当前控件已经销毁，请重新生成！");
       }
       if (flag == null) {

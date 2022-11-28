@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { isShowErrorMessage } from "@/config";
 
 export const useTiandituStore = defineStore("tianditu", {
   state: () => ({
@@ -28,8 +29,8 @@ export const useTiandituStore = defineStore("tianditu", {
         return;
       }
       if (!Tmap) {
-        console.error("Tmap传递为空");
-        return;
+        isShowErrorMessage && window.$message.error("Tmap传递为空");
+        throw new Error("Tmap传递为空");
       }
       this.Tmap = Tmap;
       console.log("天地图初始化成功");
@@ -42,10 +43,12 @@ export const useTiandituStore = defineStore("tianditu", {
      * */
     addControl(id, control) {
       if (!id || !control) {
+        isShowErrorMessage && window.$message.error(`addControl 参数不完整`);
         throw new Error(`addControl 参数不完整`);
       }
       // 检查是否已经存在
       if (this.mapControl[id]) {
+        isShowErrorMessage && window.$message.error(`当前存储的控件已经存在:${id}`);
         throw new Error(`当前存储的控件已经存在:${id}`);
       }
       this.mapControl[id] = control;
@@ -57,10 +60,13 @@ export const useTiandituStore = defineStore("tianditu", {
      * */
     removeControl(id) {
       if (!id) {
+        isShowErrorMessage && window.$message.error(`removeControl 参数不完整`);
         throw new Error(`removeControl 参数不完整`);
       }
       // 检查是否不存在
       if (!this.mapControl[id]) {
+        isShowErrorMessage &&
+          window.$message.error(`当前销毁的控件不存在:${id}`);
         throw new Error(`当前销毁的控件不存在:${id}`);
       }
       this.Tmap.removeControl(this.mapControl[id]);
@@ -70,13 +76,16 @@ export const useTiandituStore = defineStore("tianditu", {
      * 添加覆盖物*/
     addOverLay(id, overlay) {
       if (!id || !overlay) {
+        isShowErrorMessage && window.$message.error(`addOverLay 参数不完整`);
         throw new Error(`addOverLay 参数不完整`);
       }
       // 检查是否已经存在
       if (this.mapOverLay[id]) {
+        isShowErrorMessage &&
+          window.$message.error(`当前存储的覆盖物已经存在:${id}`);
         throw new Error(`当前存储的覆盖物已经存在:${id}`);
       }
-      this.mapControl[id] = overlay;
+      this.mapOverLay[id] = overlay;
       this.Tmap.addOverLay(overlay);
     },
     /*
@@ -84,10 +93,13 @@ export const useTiandituStore = defineStore("tianditu", {
      * */
     removeOverLay(id) {
       if (!id) {
+        isShowErrorMessage && window.$message.error(`removeOverLay 参数不完整`);
         throw new Error(`removeOverLay 参数不完整`);
       }
       // 检查是否不存在
       if (!this.mapOverLay[id]) {
+        isShowErrorMessage &&
+          window.$message.error(`当前销毁的覆盖物不存在:${id}`);
         throw new Error(`当前销毁的覆盖物不存在:${id}`);
       }
       this.Tmap.removeOverLay(this.mapOverLay[id]);
