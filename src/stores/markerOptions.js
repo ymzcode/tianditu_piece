@@ -8,8 +8,10 @@ export const useMarkerStore = defineStore("markerOptions", {
   actions: {
     /*
      * 初始化海量幼儿园数据*/
-    async initKindergarten(isUseLocalMapData = true) {
-      console.log(kindergarten);
+    async initKindergarten(
+      isUseLocalMapData = true,
+      kindergartenDataSlider = 1000
+    ) {
       let mapData;
       // 判断是否使用本地数据
       if (isUseLocalMapData) {
@@ -20,17 +22,24 @@ export const useMarkerStore = defineStore("markerOptions", {
       }
 
       let lnglats = [];
-      mapData.results.map((item) => {
+      mapData.results.slice(0, kindergartenDataSlider).map((item) => {
         const co = item.geojson.geometry.coordinates[0];
         const lng = new window.T.LngLat(co[0], co[1]);
         lnglats.push(lng);
       });
       const _CloudCollection = new window.T.CloudMarkerCollection(lnglats, {
         color: "blue",
-        SizeType: window.TDT_POINT_SIZE_SMALL,
+        SizeType: window.TDT_POINT_SIZE_NORMAL,
       });
-      const { addOverLay } = useTiandituStore();
-      addOverLay("kind", _CloudCollection);
+      const { addOverLay, Tmap } = useTiandituStore();
+      addOverLay("kindergarten", _CloudCollection);
+      Tmap.setViewport(lnglats);
+    },
+    /*
+     * 销毁海量幼儿园数据*/
+    removeKindergarten() {
+      const { removeOverLay } = useTiandituStore();
+      removeOverLay("kindergarten");
     },
   },
 });
