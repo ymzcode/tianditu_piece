@@ -10,9 +10,11 @@ axios.interceptors.request.use(
     config.headers = {
       "Content-Type": "application/json;charset=UTF-8", // 传参方式json
     };
+    window.$loadingBar.start();
     return config;
   },
   (error) => {
+    window.$loadingBar.error();
     return Promise.reject(error);
   }
 );
@@ -20,9 +22,11 @@ axios.interceptors.request.use(
 //http response 拦截器
 axios.interceptors.response.use(
   (response) => {
+    window.$loadingBar.finish();
     return response;
   },
   (error) => {
+    window.$loadingBar.error();
     const { response } = error;
     if (response) {
       // 请求已发出，但是不在2xx的范围
