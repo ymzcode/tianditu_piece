@@ -1,5 +1,14 @@
 <script setup>
-import { NList, NListItem, NButton, NAlert, NSwitch, NSlider, NNumberAnimation } from "naive-ui";
+import {
+  NList,
+  NListItem,
+  NButton,
+  NAlert,
+  NSwitch,
+  NSlider,
+  NNumberAnimation,
+  NIcon,
+} from "naive-ui";
 import { useMarkerStore } from "@/stores/markerOptions";
 import { ref } from "vue";
 
@@ -17,7 +26,10 @@ const onClickInitKindergarten = () => {
   setTimeout(() => {
     isInitKindergarten.value = false;
   }, 6000);
-  pinia_useMarkerStore.initKindergarten(kindergartenUseLocalData.value, kindergartenDataSlider.value);
+  pinia_useMarkerStore.initKindergarten(
+    kindergartenUseLocalData.value,
+    kindergartenDataSlider.value
+  );
 };
 
 const railStyle = ({ focused, checked }) => {
@@ -38,8 +50,24 @@ const railStyle = ({ focused, checked }) => {
       </n-list-item>
       <!--      幼儿园数据-->
       <n-list-item>
-        <div class="mb-2">
-          全国幼儿园数据
+        <div class="mb-2 flex flex-row items-center">
+          <n-icon size="20" color="#0e7a0d">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 32 32"
+            >
+              <path d="M12 10h2v4h-2z" fill="currentColor"></path>
+              <path d="M18 18h4v2h-4z" fill="currentColor"></path>
+              <path d="M14 18v-2h-2v4h4v-2h-2z" fill="currentColor"></path>
+              <path d="M16 4h12v12H16z" fill="currentColor"></path>
+              <path
+                d="M17.885 29.997l-6.066-3.855L4 27.989V4h10v4h-2V6H6v19.461l6.181-1.46l5.934 3.772L22.818 26H26v-6h-2v-2h4v10h-4.818l-5.297 1.997z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </n-icon>
+          <span class="mx-2">全国幼儿园数据 </span>
           <n-switch
             v-model:value="kindergartenUseLocalData"
             :round="false"
@@ -49,10 +77,40 @@ const railStyle = ({ focused, checked }) => {
             <template #unchecked> 正在使用线上数据 </template>
           </n-switch>
         </div>
-        <div>设置渲染数据的数量级
+        <div>
+          设置渲染数据的数量级
           <n-number-animation :from="0" :to="kindergartenDataSlider" />
         </div>
-        <n-slider v-model:value="kindergartenDataSlider" :min="10" :max="200000" :step="1" />
+        <n-slider
+          v-model:value="kindergartenDataSlider"
+          :min="10"
+          :max="200000"
+          :step="1"
+        />
+        <div class="mt-2">
+          <n-alert class="mb-2" :show-icon="false">
+            播放按钮可以实现幼儿园数据动态播放，每隔3秒会重新
+          </n-alert>
+          <n-button
+            strong
+            secondary
+            round
+            type="info"
+            @click="pinia_useMarkerStore.playKindergartenData()"
+          >
+            播放
+          </n-button>
+          <n-button
+            class="ml-2"
+            strong
+            secondary
+            round
+            type="info"
+            @click="pinia_useMarkerStore.stopKindergartenData()"
+          >
+            停止
+          </n-button>
+        </div>
         <template #suffix>
           <n-button
             type="info"
@@ -61,10 +119,10 @@ const railStyle = ({ focused, checked }) => {
             >生成</n-button
           >
           <n-button
-              class="mt-2"
-              type="warning"
-              @click="pinia_useMarkerStore.removeKindergarten()"
-          >销毁</n-button
+            class="mt-2"
+            type="warning"
+            @click="pinia_useMarkerStore.removeKindergarten()"
+            >销毁</n-button
           >
         </template>
       </n-list-item>
