@@ -184,7 +184,6 @@ const pinia_settingStore = useSettingStore();
       >
     </div>
   </div>
-  <n-divider />
 </template>
 
 <style scoped>

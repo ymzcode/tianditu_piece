@@ -4,8 +4,22 @@ export const useTiandituStore = defineStore("tianditu", {
   state: () => ({
     // 全局天地图组件视图对象
     Tmap: null,
-    // 存储地图中所有添加的控件对象，方便后续的操作与管理
+    /*
+     * 存储地图中所有添加的控件对象，方便后续的操作与管理
+     *
+     * 以key为id，value作为存储的控件对象，其结果存储格式为
+     * { 'github': 对象体, ~~~~~ }*/
     mapControl: {},
+    /*
+     * 这里你也可以使用getOverlays，去管理地图中所有的覆盖物，
+     * 但是相比每次调用，如果严格按照自己的增删方法去操作覆盖物，管理起来会更清晰。
+     *
+     * 存储地图中所有手动操作的覆盖物对象，请严格使用增删方法操作覆盖物，避免视图管理错乱
+     *
+     * 以key为id，value为{},
+     * value中目前存储为{ overLay: 为视图对象, } 其他选项
+     * */
+    mapOverLay: {},
   }),
   actions: {
     initTmap(Tmap) {
@@ -51,6 +65,33 @@ export const useTiandituStore = defineStore("tianditu", {
       }
       this.Tmap.removeControl(this.mapControl[id]);
       delete this.mapControl[id];
+    },
+    /*
+     * 添加覆盖物*/
+    addOverLay(id, overlay) {
+      if (!id || !overlay) {
+        throw new Error(`addOverLay 参数不完整`);
+      }
+      // 检查是否已经存在
+      if (this.mapOverLay[id]) {
+        throw new Error(`当前存储的覆盖物已经存在:${id}`);
+      }
+      this.mapControl[id] = overlay;
+      this.Tmap.addOverLay(overlay);
+    },
+    /*
+     * 移除overLay覆盖物
+     * */
+    removeOverLay(id) {
+      if (!id) {
+        throw new Error(`removeOverLay 参数不完整`);
+      }
+      // 检查是否不存在
+      if (!this.mapOverLay[id]) {
+        throw new Error(`当前销毁的覆盖物不存在:${id}`);
+      }
+      this.Tmap.removeOverLay(this.mapOverLay[id]);
+      delete this.mapOverLay[id];
     },
   },
 });
