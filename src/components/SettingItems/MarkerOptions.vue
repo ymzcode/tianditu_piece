@@ -89,7 +89,8 @@ const railStyle = ({ focused, checked }) => {
         />
         <div class="mt-2">
           <n-alert class="mb-2" :show-icon="false">
-            播放按钮可以实现幼儿园数据动态播放，每隔3秒会重新
+            播放按钮可以实现幼儿园数据动态播放，播放时间间隔为3秒<br>
+            播放时取值条件为固定：使用本地数据，起始点范围[10 - 180000]，步长范围[1000 - 3000]
           </n-alert>
           <n-button
             strong
