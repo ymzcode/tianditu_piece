@@ -35,6 +35,7 @@ export const useMarkerStore = defineStore("markerOptions", {
         .map((item) => {
           const co = item.geojson.geometry.coordinates[0];
           const lng = new window.T.LngLat(co[0], co[1]);
+          lng.custom_data = item;
           lnglats.push(lng);
         });
       const _CloudCollection = new window.T.CloudMarkerCollection(lnglats, {
@@ -43,6 +44,8 @@ export const useMarkerStore = defineStore("markerOptions", {
       });
       const { addOverLay, Tmap } = useTiandituStore();
       addOverLay("kindergarten", _CloudCollection);
+      // 为海量点注册点击事件
+      _CloudCollection.addEventListener("click", this.onClickKindergarten);
       Tmap.setViewport(lnglats);
     },
     /*
@@ -50,6 +53,19 @@ export const useMarkerStore = defineStore("markerOptions", {
     removeKindergarten() {
       const { removeOverLay } = useTiandituStore();
       removeOverLay("kindergarten");
+    },
+    /*
+     * 幼儿园海量点的点击事件
+     * */
+    onClickKindergarten(e) {
+      console.log(e);
+      const { custom_data } = e.lnglat;
+      window.$notification.info({
+        content: custom_data.name,
+        meta: `地址：${custom_data.address}，code：${custom_data.gbcode}，坐标：${e.lnglat.lng},${e.lnglat.lat}`,
+        duration: 3000,
+        keepAliveOnHover: true,
+      });
     },
     /*
      * 动态播放幼儿园数据*/
