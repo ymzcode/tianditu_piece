@@ -1,7 +1,7 @@
 <script setup>
 import { NSwitch, NDivider } from "naive-ui";
-import { useSettingStore } from "@/stores/setting";
-const pinia_settingStore = useSettingStore();
+import {useMapOptionsStore} from "@/stores/mapOptions";
+const pinia_settingStore = useMapOptionsStore();
 </script>
 
 <template>

@@ -1,8 +1,8 @@
 <script setup>
 import { NSwitch, NDivider, NButton } from "naive-ui";
 
-import { useSettingStore } from "@/stores/setting";
-const pinia_settingStore = useSettingStore();
+import { useControlOptionsStore } from "@/stores/controlOptions";
+const pinia_settingStore = useControlOptionsStore();
 </script>
 <template>
   <!--        变量说明-->
