@@ -67,7 +67,7 @@ const railStyle = ({ focused, checked }) => {
               ></path>
             </svg>
           </n-icon>
-          <span class="mx-2">全国幼儿园数据 </span>
+          <span class="mx-2">海量点全国幼儿园数据 </span>
           <n-switch
             v-model:value="kindergartenUseLocalData"
             :round="false"

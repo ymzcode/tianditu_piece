@@ -35,6 +35,49 @@ export const useTiandituStore = defineStore("tianditu", {
       this.Tmap = Tmap;
       console.log("天地图初始化成功");
       this.Tmap.centerAndZoom(new window.T.LngLat(116.40769, 39.89945), 12);
+
+      var point = new window.T.LngLat(116.40438, 39.87877);
+      import("@/wind/index").then(({ WindLayer }) => {
+        fetch(
+          "https://sakitam.oss-cn-beijing.aliyuncs.com/codepen/wind-layer/json/wind.json"
+        )
+          .then((res) => res.json())
+          .then((res) => {
+            const pdefinedOverlay = new WindLayer(res, {
+              windOptions: {
+                // colorScale: scale,
+                velocityScale: 1 / 20,
+                paths: 5000,
+                // eslint-disable-next-line no-unused-vars
+                colorScale: [
+                  "rgb(36,104, 180)",
+                  "rgb(60,157, 194)",
+                  "rgb(128,205,193 )",
+                  "rgb(151,218,168 )",
+                  "rgb(198,231,181)",
+                  "rgb(238,247,217)",
+                  "rgb(255,238,159)",
+                  "rgb(252,217,125)",
+                  "rgb(255,182,100)",
+                  "rgb(252,150,75)",
+                  "rgb(250,112,52)",
+                  "rgb(245,64,32)",
+                  "rgb(237,45,28)",
+                  "rgb(220,24,32)",
+                  "rgb(180,0,35)",
+                ],
+                lineWidth: 2,
+                // colorScale: scale,
+                generateParticleOption: false,
+              },
+              zIndex: 20,
+              // map: map,
+              // projection: 'EPSG:4326'
+            });
+            console.log(pdefinedOverlay);
+            this.Tmap.addOverLay(pdefinedOverlay);
+          });
+      });
     },
     /*
      * 添加Control控件
@@ -48,7 +91,8 @@ export const useTiandituStore = defineStore("tianditu", {
       }
       // 检查是否已经存在
       if (this.mapControl[id]) {
-        isShowErrorMessage && window.$message.error(`当前存储的控件已经存在:${id}`);
+        isShowErrorMessage &&
+          window.$message.error(`当前存储的控件已经存在:${id}`);
         throw new Error(`当前存储的控件已经存在:${id}`);
       }
       this.mapControl[id] = control;

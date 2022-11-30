@@ -11,7 +11,8 @@
     "axios": "^1.2.0",
     "pinia": "^2.0.21",
     "vue": "^3.2.38",
-    "vue-router": "^4.1.5"
+    "vue-router": "^4.1.5",
+    "wind-core": "^1.1.2"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
