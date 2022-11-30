@@ -41,4 +41,5 @@ function loadJs(src) {
   <div id="mapTian" class="w-full h-full"></div>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>

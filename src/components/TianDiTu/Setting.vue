@@ -1,15 +1,19 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { NDrawer, NDrawerContent, NCollapse, NCollapseItem } from "naive-ui";
-import { useSettingStore } from "@/stores/setting";
+import {
+  NDrawer,
+  NDrawerContent,
+  NCollapse,
+  NCollapseItem,
+  NTag,
+} from "naive-ui";
 import ControlOptions from "@/components/SettingItems/ControlOptions.vue";
 import MapOptions from "@/components/SettingItems/MapOptions.vue";
 import MarkerOptions from "@/components/SettingItems/MarkerOptions.vue";
+import { version } from "@/config";
 
 // 展示抽屉
 const isShowModel = ref(false);
-
-const pinia_settingStore = useSettingStore();
 </script>
 
 <template>
@@ -23,6 +27,10 @@ const pinia_settingStore = useSettingStore();
   </div>
   <n-drawer v-model:show="isShowModel" :width="500">
     <n-drawer-content title="地图设置" closable>
+      <template #header>
+        地图设置
+        <n-tag size="small"> {{ version }} </n-tag>
+      </template>
       <div class="flex flex-col">
         <n-collapse>
           <n-collapse-item title="地图属性控制" name="1">
@@ -43,6 +51,4 @@ const pinia_settingStore = useSettingStore();
   </n-drawer>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

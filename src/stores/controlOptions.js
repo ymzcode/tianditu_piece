@@ -58,7 +58,7 @@ export const useControlOptionsStore = defineStore("controlOptions", {
       copyControl.addCopyright({
         id: 1,
         content:
-          "<a href='https://github.com/ymzcode/tianditu_piece' target='_blank'>关于我：GitHub</a>",
+          "<a style='background: #000;padding: 0 8px;color: #ffffff' href='https://github.com/ymzcode/tianditu_piece' target='_blank'>关于我：GitHub</a>",
         bounds: bs,
       });
     },
