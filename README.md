@@ -6,6 +6,10 @@ tianditu_piece是一个整合了天地图JavaScript API 4.0各种功能的项目
 
 项目开发环境为node18.12.1，选用tailwind、NaiveUi作为UI库，使用Pinia作为存储库。
 
+# 注意
+
+1. 因为项目资源配额有限（每天1W），所以做了token、地图类型的随机分发，如果当前地图无法正常查看，请尝试重新刷新页面
+
 # 特色
 1. 可分成线上、线下模拟展示最多20万幼儿园数据的加载效果
 2. 封装风场插件tmap-wind（详见：https://github.com/ymzcode/tmap-wind） ，
