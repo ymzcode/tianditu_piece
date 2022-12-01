@@ -1,4 +1,10 @@
-import { WindCore, isArray, formatData, defaultOptions } from "wind-core";
+import {
+  WindCore,
+  isArray,
+  formatData,
+  defaultOptions,
+  assign,
+} from "wind-core";
 
 // 检查当前环境是否已经引入天地图
 if (!window.T) {
@@ -8,12 +14,12 @@ if (!window.T) {
 const TMapWind = window.T.Overlay.extend({
   // 构造函数时传递参数，对OverlayOptions属性值进行赋值。
   initialize: function (data, options) {
+    this.map = null;
     this.options = options;
     this.paneName = "overlayPane";
     this.context = "2d";
     this.zIndex = 999999;
     this.mixBlendMode = "normal";
-    this.enableMassClear = false;
     this.field = null;
 
     // 矢量图层
@@ -73,6 +79,11 @@ const TMapWind = window.T.Overlay.extend({
       this._draw();
     };
 
+    this.updateParams = (options) => {
+      this.setWindOptions(options);
+      return this;
+    };
+
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
     this.handleResize = this.handleResize.bind(this);
@@ -99,7 +110,7 @@ const TMapWind = window.T.Overlay.extend({
 
   _render: function (canvas) {
     if (!this.getData() || !this.map) return this;
-    const opt = this.getWindOptions();
+    const opt = this.getOptimizeWindOptions();
 
     if (canvas && !this.wind) {
       const data = this.getData();
@@ -119,11 +130,23 @@ const TMapWind = window.T.Overlay.extend({
     }
 
     if (this.wind) {
+      this.wind.setOptions(this.options.windOptions);
       this.wind.prerender();
       this.wind.render();
     }
 
     return this;
+  },
+  setWindOptions: function (options) {
+    const beforeOptions = this.options.windOptions || {};
+    this.options = assign(this.options, {
+      windOptions: assign(beforeOptions, options || {}),
+    });
+
+    if (this.wind) {
+      this.wind.setOptions(this.options.windOptions);
+      this.wind.prerender();
+    }
   },
   bindEvent: function () {
     this.map.addEventListener("resize", this.handleResize);
@@ -131,12 +154,51 @@ const TMapWind = window.T.Overlay.extend({
     this.map.addEventListener("movestart", this.stop);
     this.map.addEventListener("moveend", this.startAndDraw);
   },
+
+  // 获取优化过后的配置项
+  getOptimizeWindOptions: function () {
+    const velocityScales = {
+      0: 1 / 20,
+      1: 1 / 20,
+      2: 1 / 20,
+      3: 1 / 30,
+      4: 1 / 40,
+      5: 1 / 50,
+      6: 1 / 60,
+      7: 0.003,
+      8: 0.002,
+      9: 0.001,
+      10: 0.0005,
+      11: 0.0003,
+      12: 0.00015,
+      13: 0.0001,
+      14: 0.00005,
+      15: 0.000025,
+      16: 0.00001,
+      17: 0.000005,
+      18: 0.000002,
+    };
+
+    // 自动优化配置
+    const beforeOptions = this.options.windOptions || {};
+
+    const zoom = this.map.getZoom();
+    const options = {
+      velocityScale: velocityScales[zoom] || 1 / 200,
+      paths: zoom >= 8 ? 3000 : 5000,
+    };
+
+    this.options = assign(this.options, {
+      windOptions: assign(beforeOptions, options || {}),
+    });
+    return this.options.windOptions || {};
+  },
   getWindOptions: function () {
     return this.options.windOptions || {};
   },
   onRemove: function () {
     console.log("执行删除");
-    var parent = this.div.parentNode;
+    const parent = this.div.parentNode;
     if (parent) {
       parent.removeChild(this.div);
       this.map = null;
