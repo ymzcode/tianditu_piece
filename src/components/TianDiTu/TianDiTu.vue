@@ -1,11 +1,12 @@
 <script setup>
 import { onMounted } from "vue";
-import { tianditu_token } from "@/config/index";
 import { useTiandituStore } from "@/stores/tianditu";
 import { useSettingStore } from "@/stores/setting";
+import {randomCreateMapType, randomCreateUrl} from "@/utils/demoUtils";
 
 onMounted(() => {
-  loadJs(`https://api.tianditu.gov.cn/api?v=4.0&tk=${tianditu_token}`).then(
+
+  loadJs(randomCreateUrl()).then(
     (res) => {
       // 创建地图视图，初始化
       const map = new window.T.Map("mapTian");
@@ -15,6 +16,8 @@ onMounted(() => {
       const pinia_useSettingStore = useSettingStore();
       pinia_useTiandituStore.initTmap(map);
       pinia_useSettingStore.initSetting();
+      // 随机设置一个图层
+      map.setMapType(randomCreateMapType())
     }
   );
 });
