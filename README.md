@@ -4,7 +4,13 @@ tianditu_piece是一个整合了天地图JavaScript API 4.0各种功能的项目
 
 关于天地图JavaScript API 4.0的更多介绍可以查看: [天地图官网](http://lbs.tianditu.gov.cn/api/js4.0/guide.html)
 
-项目使用vue3，node18.12.1作为开发环境，选用tailwind、NaiveUi。使用Pinia作为存储库。
+项目开发环境为node18.12.1，选用tailwind、NaiveUi作为UI库，使用Pinia作为存储库。
+
+# 特色
+1. 可分成线上、线下模拟展示最多20万幼儿园数据的加载效果
+2. 封装风场插件tmap-wind（详见：https://github.com/ymzcode/tmap-wind） ，
+实现了天地图的风场可视化/风向图效果
+3. 正在开发中···
 
 # 各依赖项
 
@@ -17,4 +23,10 @@ tianditu_piece是一个整合了天地图JavaScript API 4.0各种功能的项目
 
 https://ymzcode.github.io/tianditu_piece/
 
+# 其他
 
+博客：https://bingyishow.top
+
+# 赞助
+
+赞助名单：https://bingyishow.top/11.html
