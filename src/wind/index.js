@@ -18,7 +18,7 @@ const TMapWind = window.T.Overlay.extend({
     this.options = options;
     this.paneName = "overlayPane";
     this.context = "2d";
-    this.zIndex = 999999;
+    this.zIndex = this.options.zIndex;
     this.mixBlendMode = "normal";
     this.field = null;
 
@@ -90,7 +90,7 @@ const TMapWind = window.T.Overlay.extend({
 
     this.pickWindOptions();
 
-    console.log("设置项目", this.options);
+    // console.log("设置项目", this.options);
 
     if (data) {
       this.setData(data, options.fieldOptions);
@@ -99,6 +99,7 @@ const TMapWind = window.T.Overlay.extend({
   onAdd: function (map) {
     this.map = map;
     const canvas = (this.canvas = document.createElement("canvas"));
+    canvas.setAttribute("id", "_TmapWind");
     canvas.style.cssText = `position:absolute; left:0; top:0; z-index: ${this.zIndex} ;user-select:none;`;
     canvas.style.mixBlendMode = this.mixBlendMode;
     this.adjustSize();
@@ -153,6 +154,19 @@ const TMapWind = window.T.Overlay.extend({
 
     this.map.addEventListener("movestart", this.stop);
     this.map.addEventListener("moveend", this.startAndDraw);
+
+    this.map.addEventListener("zoomstart", this.stop);
+    this.map.addEventListener("zoomend", this.start);
+  },
+
+  unbindEvent: function () {
+    this.map.removeEventListener("resize", this.handleResize);
+
+    this.map.removeEventListener("movestart", this.stop);
+    this.map.removeEventListener("moveend", this.startAndDraw);
+
+    this.map.removeEventListener("zoomstart", this.stop);
+    this.map.removeEventListener("zoomend", this.start);
   },
 
   // 获取优化过后的配置项
@@ -197,28 +211,28 @@ const TMapWind = window.T.Overlay.extend({
     return this.options.windOptions || {};
   },
   onRemove: function () {
-    console.log("执行删除");
-    const parent = this.div.parentNode;
-    if (parent) {
-      parent.removeChild(this.div);
-      this.map = null;
-      this.div = null;
-    }
+    // console.log("执行删除");
+    this.unbindEvent();
+    const parent = this.canvas.parentNode;
+    parent.removeChild(this.canvas);
   },
   start: function () {
     if (this.wind) {
-      console.log("start");
+      // console.log("start");
       this.wind.start();
     }
   },
   stop: function () {
     if (this.wind) {
-      console.log("stop");
+      // console.log("stop");
       this.wind.stop();
     }
   },
+  getElement: function () {
+    return this.canvas;
+  },
   handleResize: function () {
-    console.log("可是区域变化");
+    // console.log("可视区域变化");
     this.adjustSize();
     this._draw();
   },
@@ -231,7 +245,7 @@ const TMapWind = window.T.Overlay.extend({
       console.error("Illegal data");
     }
 
-    console.log("查看数据是否赋值", this.field);
+    // console.log("查看数据是否赋值", this.field);
 
     // 第一次不会走这里
     if (this.map && this.canvas && this.field) {
@@ -274,7 +288,7 @@ const TMapWind = window.T.Overlay.extend({
    * 更新位置
    */
   update: function () {
-    console.log("chonghui");
+    // console.log("重新绘制");
     this._draw();
   },
 });
