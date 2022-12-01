@@ -1,3 +1,7 @@
+/*
+* 该风场文件已发布npm插件，tmap-wind，地址：https://github.com/ymzcode/tmap-wind
+* */
+
 import {
   WindCore,
   isArray,
@@ -13,14 +17,19 @@ if (!window.T) {
 
 const TMapWind = window.T.Overlay.extend({
   // 构造函数时传递参数，对OverlayOptions属性值进行赋值。
-  initialize: function (data, options) {
+  initialize: function (data, options = {}) {
+    const opt = assign({}, options);
     this.map = null;
-    this.options = options;
+    this.options = opt;
     this.paneName = "overlayPane";
     this.context = "2d";
     this.zIndex = this.options.zIndex;
     this.mixBlendMode = "normal";
     this.field = null;
+    // 是否禁用默认配置项，禁用后需要自行设置
+    this.isDisableAutoConfig = opt.isDisableAutoConfig;
+    // 自定义的canvas样式
+    this.customStyle = opt.customStyle;
 
     // 矢量图层
     this.canvas = null;
@@ -100,7 +109,9 @@ const TMapWind = window.T.Overlay.extend({
     this.map = map;
     const canvas = (this.canvas = document.createElement("canvas"));
     canvas.setAttribute("id", "_TmapWind");
-    canvas.style.cssText = `position:absolute; left:0; top:0; z-index: ${this.zIndex} ;user-select:none;`;
+    canvas.style.cssText =
+      this.customStyle ||
+      `position:absolute; left:0; top:0; z-index: ${this.zIndex} ;user-select:none;`;
     canvas.style.mixBlendMode = this.mixBlendMode;
     this.adjustSize();
     map.getPanes()[this.paneName].appendChild(canvas);
@@ -111,7 +122,9 @@ const TMapWind = window.T.Overlay.extend({
 
   _render: function (canvas) {
     if (!this.getData() || !this.map) return this;
-    const opt = this.getOptimizeWindOptions();
+    const opt = this.isDisableAutoConfig
+      ? this.getWindOptions()
+      : this.getOptimizeWindOptions();
 
     if (canvas && !this.wind) {
       const data = this.getData();
@@ -170,6 +183,7 @@ const TMapWind = window.T.Overlay.extend({
   },
 
   // 获取优化过后的配置项
+  // 插件内置配置项
   getOptimizeWindOptions: function () {
     const velocityScales = {
       0: 1 / 20,
@@ -193,13 +207,33 @@ const TMapWind = window.T.Overlay.extend({
       18: 0.000002,
     };
 
-    // 自动优化配置
+    const colorScale = [
+      "rgb(36,104, 180)",
+      "rgb(60,157, 194)",
+      "rgb(128,205,193 )",
+      "rgb(151,218,168 )",
+      "rgb(198,231,181)",
+      "rgb(238,247,217)",
+      "rgb(255,238,159)",
+      "rgb(252,217,125)",
+      "rgb(255,182,100)",
+      "rgb(252,150,75)",
+      "rgb(250,112,52)",
+      "rgb(245,64,32)",
+      "rgb(237,45,28)",
+      "rgb(220,24,32)",
+      "rgb(180,0,35)",
+    ];
+
     const beforeOptions = this.options.windOptions || {};
 
     const zoom = this.map.getZoom();
     const options = {
       velocityScale: velocityScales[zoom] || 1 / 200,
       paths: zoom >= 8 ? 3000 : 5000,
+      frameRate: 20,
+      colorScale: colorScale,
+      lineWidth: 2,
     };
 
     this.options = assign(this.options, {
