@@ -2,24 +2,21 @@
 import { onMounted } from "vue";
 import { useTiandituStore } from "@/stores/tianditu";
 import { useSettingStore } from "@/stores/setting";
-import {randomCreateMapType, randomCreateUrl} from "@/utils/demoUtils";
+import { randomCreateMapType, randomCreateUrl } from "@/utils/demoUtils";
 
 onMounted(() => {
-
-  loadJs(randomCreateUrl()).then(
-    (res) => {
-      // 创建地图视图，初始化
-      const map = new window.T.Map("mapTian");
-      // 在window注册map，用于支持标绘控件
-      window.map = map;
-      const pinia_useTiandituStore = useTiandituStore();
-      const pinia_useSettingStore = useSettingStore();
-      pinia_useTiandituStore.initTmap(map);
-      pinia_useSettingStore.initSetting();
-      // 随机设置一个图层
-      map.setMapType(randomCreateMapType())
-    }
-  );
+  loadJs(randomCreateUrl()).then((res) => {
+    // 创建地图视图，初始化
+    const map = new window.T.Map("mapTian");
+    // 在window注册map，用于支持标绘控件
+    window.map = map;
+    const pinia_useTiandituStore = useTiandituStore();
+    const pinia_useSettingStore = useSettingStore();
+    pinia_useTiandituStore.initTmap(map);
+    pinia_useSettingStore.initSetting();
+    // 随机设置一个图层
+    map.setMapType(randomCreateMapType());
+  });
 });
 
 // 动态加载js
@@ -44,5 +41,4 @@ function loadJs(src) {
   <div id="mapTian" class="w-full h-full"></div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
