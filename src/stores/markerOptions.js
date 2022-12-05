@@ -126,9 +126,13 @@ export const useMarkerStore = defineStore("markerOptions", {
       } else {
         this.isShowTmapWind = flag;
       }
-      this.isShowTmapWind
-        ? mapOverLay["TmapWind"].show()
-        : mapOverLay["TmapWind"].hide();
+      if (this.isShowTmapWind) {
+        mapOverLay["TmapWind"].show();
+        mapOverLay["TmapWind"].start();
+      } else {
+        mapOverLay["TmapWind"].hide();
+        mapOverLay["TmapWind"].stop();
+      }
     },
     removeTmapWind() {
       const { removeOverLay } = useTiandituStore();
