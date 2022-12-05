@@ -106,5 +106,53 @@ export const useTiandituStore = defineStore("tianditu", {
       this.Tmap.removeOverLay(this.mapOverLay[id]);
       delete this.mapOverLay[id];
     },
+    /*
+     * 添加某一种类的多个覆盖物
+     * 该方法不会检查添加的视图是否重复存在，只会在相应的id中累计添加，
+     * 如果没有该id，则根据固定命名规则创建ID后添加视图
+     * id ｜ 命名
+     * overlays ｜ 可以传入单个视图或者数组
+     * 如 城市标点
+     * */
+    addOverLayForType(id, overlays) {
+      if (!id || !overlays) {
+        isShowErrorMessage &&
+          window.$message.error(`addOverLayForType 参数不完整`);
+        throw new Error(`addOverLayForType 参数不完整`);
+      }
+      const ID = `_CLASS_${id}`;
+      let lays = [];
+      // 判断overlays是不是一个数组
+      Array.isArray(overlays) ? (lays = overlays) : (lays = [overlays]);
+      lays.map((item) => {
+        this.Tmap.addOverLay(item);
+      });
+      console.log(overlays, lays);
+      this.mapOverLay[ID]
+        ? (this.mapOverLay[ID] = this.mapOverLay[ID].concat(lays))
+        : (this.mapOverLay[ID] = lays);
+    },
+    /*
+     * 移除某一种类的多个覆盖物
+     * 命名以_CLASS_开头的覆盖物
+     * */
+    removeOverLayForType(id) {
+      if (!id) {
+        isShowErrorMessage &&
+          window.$message.error(`removeOverLayForType 参数不完整`);
+        throw new Error(`removeOverLayForType 参数不完整`);
+      }
+      const ID = `_CLASS_${id}`;
+      // 检查是否不存在
+      if (!this.mapOverLay[ID]) {
+        isShowErrorMessage &&
+        window.$message.error(`当前销毁的覆盖物类不存在:${ID}`);
+        throw new Error(`当前销毁的覆盖物类不存在:${ID}`);
+      }
+      this.mapOverLay[ID].map((item) => {
+        this.Tmap.removeOverLay(item);
+      });
+      delete this.mapOverLay[ID];
+    },
   },
 });
