@@ -11,6 +11,7 @@ import ControlOptions from "@/components/SettingItems/ControlOptions.vue";
 import MapOptions from "@/components/SettingItems/MapOptions.vue";
 import MarkerOptions from "@/components/SettingItems/MarkerOptions.vue";
 import { version } from "@/config";
+import QweatherOptions from "@/components/SettingItems/QweatherOptions.vue";
 
 // 展示抽屉
 const isShowModel = ref(false);
@@ -44,6 +45,10 @@ const isShowModel = ref(false);
           <n-collapse-item title="覆盖物相关" name="3">
             <!--            覆盖物选项组件-->
             <marker-options></marker-options>
+          </n-collapse-item>
+          <n-collapse-item title="和风天气" name="4">
+            <!--            和风天气选项组件-->
+            <qweather-options></qweather-options>
           </n-collapse-item>
         </n-collapse>
       </div>
