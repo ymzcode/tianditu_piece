@@ -24,8 +24,23 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
     },
     // 城市搜索
     api_citySearch: debounce(function (e) {
-      console.log(e);
+      // console.log(e);
       this.checkInput();
+      citySearch({
+        location: this.citySearchValue,
+        number: 20,
+      }).then((res) => {
+        // console.log(res);
+        this.citySearchRes = res.location.map((item) => {
+          return {
+            label: item.name,
+            value: item
+          };
+        });
+      });
     }),
+    citySearchSelect(e) {
+      console.log(e);
+    },
   },
 });
