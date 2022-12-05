@@ -34,13 +34,37 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
         this.citySearchRes = res.location.map((item) => {
           return {
             label: item.name,
-            value: item
+            value: item,
           };
         });
       });
     }),
     citySearchSelect(e) {
       console.log(e);
+      // 定位当前城市，并标注
+      const { Tmap, addOverLayForType } = useTiandituStore();
+      const LngLat = new window.T.LngLat(e.lon, e.lat);
+      const marker = new window.T.Marker(LngLat, {
+        icon: new window.T.Icon({
+          iconUrl: "/src/assets/img/map-icon/city-1.png",
+          iconSize: new window.T.Point(40, 40),
+        }),
+      });
+      Tmap.panTo(LngLat);
+      addOverLayForType("citySearchPoint", marker);
+      const infoWin1 = new window.T.InfoWindow();
+      const sContent = `<iframe style="width: 300px;height: 350px;border: 0" src="${e.fxLink}">正在加载···，请稍后</iframe>`;
+      infoWin1.setContent(sContent);
+      marker.addEventListener("click", function () {
+        marker.openInfoWindow(infoWin1);
+      });
+    },
+    /*
+     * 销毁城市定位标注*/
+    removeCitySearch() {
+      const { removeOverLayForType } = useTiandituStore();
+
+      removeOverLayForType("citySearchPoint");
     },
   },
 });

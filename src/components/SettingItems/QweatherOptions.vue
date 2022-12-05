@@ -72,7 +72,7 @@ const city_renderLabel = (option) => [
         />
       </div>
       <template #suffix>
-        <n-button class="mt-2" type="warning">销毁</n-button>
+        <n-button class="mt-2" type="warning" @click="pinia_useQweatherOptionsStore.removeCitySearch">销毁</n-button>
       </template>
     </n-list-item>
   </n-list>
