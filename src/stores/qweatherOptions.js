@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 import { useTiandituStore } from "@/stores/tianditu";
-import { citySearch } from "@/api/qweather";
+import { citySearch, localNationalStation } from "@/api/qweather";
 import { debounce } from "@/utils/common";
 
 export const useQweatherOptionsStore = defineStore("QweatherOptions", {
   state: () => ({
-    // 和风天气免费的apikey，详见：
+    // 和风天气免费/付费的apikey
     apiKey: "",
     // 使用免费还是收费地址
     apiUrl: "https://devapi.qweather.com",
@@ -67,6 +67,13 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
       const { removeOverLayForType } = useTiandituStore();
 
       removeOverLayForType("citySearchPoint");
+    },
+    /*
+     * 加载全国监测站数据*/
+    loadNationalStation() {
+      localNationalStation().then((res) => {
+        console.log(res);
+      });
     },
   },
 });

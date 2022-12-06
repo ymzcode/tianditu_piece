@@ -1,5 +1,5 @@
 <script setup>
-import { h } from "vue";
+import { h, onMounted } from "vue";
 import {
   NInput,
   NDivider,
@@ -11,6 +11,7 @@ import {
   NListItem,
   NAlert,
   NButton,
+  NTooltip,
 } from "naive-ui";
 import { useQweatherOptionsStore } from "@/stores/qweatherOptions";
 const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
@@ -24,16 +25,38 @@ const city_renderLabel = (option) => [
     { default: () => `${option.value.lat},${option.value.lon}` }
   ),
 ];
+
+onMounted(() => {
+  loadKey();
+});
+
+const saveKey = () => {
+  window.localStorage.setItem("HF_KEY", pinia_useQweatherOptionsStore.apiKey);
+  window.$message.success("保存和风天气key成功");
+};
+
+const removeKey = () => {
+  window.localStorage.removeItem("HF_KEY");
+  pinia_useQweatherOptionsStore.apiKey = "";
+  window.$message.success("删除和风天气key成功");
+};
+
+const loadKey = () => {
+  const key = window.localStorage.getItem("HF_KEY");
+  pinia_useQweatherOptionsStore.apiKey = key;
+};
 </script>
 <template>
   <n-list>
     <!--      公告-->
     <n-list-item>
       <n-alert title="注意事项" type="warning">
-        调用和风天气接口需要先填写api key，详见：<a
+        1. 使用和风天气接口需要先填写api key，详见：<a
           href="https://dev.qweather.com/docs/configuration/project-and-key/"
           >项目和KEY</a
         >， 根据申请的类型切换免费或者付费订阅
+        <br />
+        2. 保存key逻辑为local storage，不会涉及网络传输
       </n-alert>
     </n-list-item>
     <!--    和风天气key，url接口地址-->
@@ -46,6 +69,10 @@ const city_renderLabel = (option) => [
           type="text"
           placeholder="KEY是获取和风天气开发服务的密钥"
         />
+        <div>
+          <n-button @click="saveKey">保存</n-button>
+          <n-button class="ml-2" @click="removeKey">清除</n-button>
+        </div>
       </div>
       <template #suffix>
         <n-radio-group
@@ -86,10 +113,16 @@ const city_renderLabel = (option) => [
     <n-list-item>
       <div class="flex flex-col">
         <div class="mb-2">空气质量监测站</div>
-        <n-button
-          type="info"
-          >加载全部站点</n-button
-        >
+        <n-tooltip trigger="hover">
+          <template #trigger>
+            <n-button
+              type="info"
+              @click="pinia_useQweatherOptionsStore.loadNationalStation"
+              >加载全国站点</n-button
+            >
+          </template>
+          加载项为全国空气质量监测站静态数据，点击某个站点才会调用接口
+        </n-tooltip>
       </div>
     </n-list-item>
   </n-list>
