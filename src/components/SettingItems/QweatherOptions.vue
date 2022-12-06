@@ -12,6 +12,7 @@ import {
   NAlert,
   NButton,
   NTooltip,
+  NSwitch,
 } from "naive-ui";
 import { useQweatherOptionsStore } from "@/stores/qweatherOptions";
 const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
@@ -127,7 +128,73 @@ const loadKey = () => {
       <template #suffix>
         <n-button
           type="warning"
-          @click="pinia_useQweatherOptionsStore.removeNationalStation()"
+          @click="pinia_useQweatherOptionsStore.removeNationalStation"
+          >销毁</n-button
+        >
+      </template>
+    </n-list-item>
+
+    <n-list-item>
+      <div class="flex flex-col">
+        <div class="mb-2">天气混合展示</div>
+        <div class="text-gray-500 mb-2">
+          提示：使用需先注册拾点器，然后点击地图任意位置，根据左侧开关开启状态获取相应信息
+        </div>
+        <div class="flex flex-row">
+          <span class="mr-2">实时天气</span>
+          <n-switch
+            v-model:value="
+              pinia_useQweatherOptionsStore.mixedWeatherSwitch.weatherNow
+            "
+          />
+        </div>
+        <div class="flex flex-row my-2">
+          <span class="mr-2">7日天气预报</span>
+          <n-switch
+            v-model:value="
+              pinia_useQweatherOptionsStore.mixedWeatherSwitch.weather7d
+            "
+          />
+        </div>
+        <div class="flex flex-row">
+          <span class="mr-2">24小时天气预报</span>
+          <n-switch
+            v-model:value="
+              pinia_useQweatherOptionsStore.mixedWeatherSwitch.weather24h
+            "
+          />
+        </div>
+        <div class="flex flex-row my-2">
+          <span class="mr-2">分钟级降水预报</span>
+          <n-switch
+            v-model:value="
+              pinia_useQweatherOptionsStore.mixedWeatherSwitch.minutely5m
+            "
+          />
+        </div>
+        <div class="flex flex-row">
+          <span class="mr-2">天气指数预报</span>
+          <n-switch
+            v-model:value="
+              pinia_useQweatherOptionsStore.mixedWeatherSwitch.indices1d
+            "
+          />
+        </div>
+      </div>
+      <template #suffix>
+        <n-button
+          type="info"
+          @click="
+            pinia_useQweatherOptionsStore.createMixedWeatherCoordinatePickup
+          "
+          >注册拾点器</n-button
+        >
+        <n-button
+          class="mt-2"
+          type="warning"
+          @click="
+            pinia_useQweatherOptionsStore.removeMixedWeatherCoordinatePickup
+          "
           >销毁</n-button
         >
       </template>

@@ -15,6 +15,23 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
     citySearchValue: "",
     // 城市搜索完成后的结果
     citySearchRes: [],
+    // 混合天气展示开关
+    mixedWeatherSwitch: {
+      // 实时天气
+      weatherNow: false,
+      // 7日天气预报
+      weather7d: false,
+      // 24小时天气预报
+      weather24h: false,
+      // 分钟级降水预报
+      minutely5m: false,
+      // 天气指数预报
+      indices1d: false,
+      // 拾点器对象
+      coordinatePickup: null,
+      // 拾点器获取的数据
+      lnglat: null,
+    },
   }),
   actions: {
     // 检查key是否填写
@@ -99,7 +116,8 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
                 <div class="flex flex-col items-center justify-center">
                     <h2>${_item.POI_Name}</h2>
                     <div>空气质量数据发布时间：<span class="text-red-400">${dayjs(
-                      airNowData.pubTime).format("YYYY-MM-DD HH:mm:ss") }</span></div>
+                      airNowData.pubTime
+                    ).format("YYYY-MM-DD HH:mm:ss")}</span></div>
                     <div>空气质量指数：${airNowData.aqi}</div>
                     <div>空气质量指数等级：${airNowData.level}</div>
                     <div>空气质量指数级别：${airNowData.category}</div>
@@ -132,6 +150,29 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
       const { removeMarkerClusterer } = useTiandituStore();
       // 从地图上彻底清除所有的标记。
       removeMarkerClusterer("nationalStation");
+    },
+    /*
+     * 注册混合天气拾点器
+     * */
+    createMixedWeatherCoordinatePickup() {
+      const { Tmap } = useTiandituStore();
+      if (this.mixedWeatherSwitch.coordinatePickup) return;
+      const cp = new window.T.CoordinatePickup(Tmap, {
+        callback: (lnglat) => {
+          console.log(lnglat);
+          this.mixedWeatherSwitch.lnglat = lnglat;
+        },
+      });
+      cp.addEvent();
+      this.mixedWeatherSwitch.coordinatePickup = cp;
+    },
+    /*
+     * 销毁拾点器
+     * */
+    removeMixedWeatherCoordinatePickup() {
+      this.mixedWeatherSwitch.coordinatePickup &&
+        this.mixedWeatherSwitch.coordinatePickup.removeEvent();
+      this.mixedWeatherSwitch.coordinatePickup = null;
     },
   },
 });
