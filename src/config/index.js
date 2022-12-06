@@ -7,7 +7,7 @@ const tianditu_tokens = [
   "从控制台获取的token",
 ];
 // 版本号
-const version = "1.1.5";
+const version = "1.1.6";
 // 是否输出错误提示
 const isShowErrorMessage = true;
 
