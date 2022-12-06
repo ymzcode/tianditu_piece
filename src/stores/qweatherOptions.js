@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useTiandituStore } from "@/stores/tianditu";
-import { citySearch, localNationalStation } from "@/api/qweather";
+import { airNow, citySearch, localNationalStation } from "@/api/qweather";
 import { debounce } from "@/utils/common";
 
 export const useQweatherOptionsStore = defineStore("QweatherOptions", {
@@ -22,10 +22,14 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
         throw new Error("请填写key后再调用接口");
       }
     },
+    // 获取apikey
+    getApiKey() {
+      this.checkInput();
+      return this.apiKey;
+    },
     // 城市搜索
     api_citySearch: debounce(function (e) {
       // console.log(e);
-      this.checkInput();
       citySearch({
         location: this.citySearchValue,
         number: 20,
@@ -75,11 +79,23 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
       localNationalStation().then((res) => {
         console.log(res);
         const markerArr = [];
+        // 创建信息窗口, 多个点公用一个
+        const infoWin1 = new window.T.InfoWindow();
         res.map((item) => {
           const marker = new window.T.Marker(
             new window.T.LngLat(item.POI_Longitude, item.POI_Latitude),
             { title: item.POI_Name }
           );
+          marker.addEventListener("click", function () {
+            const _item = item;
+            const sContent = `${_item.POI_Name}`;
+            // console.log(_item)
+            infoWin1.setContent(sContent);
+            airNow({ location: _item.Location_ID }).then((airNowData) => {
+              console.log(airNowData);
+            });
+            marker.openInfoWindow(infoWin1);
+          });
           markerArr.push(marker);
         });
 
