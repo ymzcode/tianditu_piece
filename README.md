@@ -9,6 +9,7 @@ tianditu_piece是一个整合了天地图JavaScript API 4.0各种功能的项目
 # 注意
 
 1. 因为项目资源配额有限（每天1W），所以做了token、地图类型的随机分发，如果当前地图无法正常查看，请尝试重新刷新页面
+2. 项目处于开发阶段，各方法存在变动情况，详见更新日志
 
 # 特色
 1. 可分成线上、线下模拟展示最多20万幼儿园数据的加载效果
@@ -21,7 +22,11 @@ tianditu_piece是一个整合了天地图JavaScript API 4.0各种功能的项目
 - [tailwind](https://tailwindcss.com/docs/installation/framework-guides)
 - [NaiveUi](https://www.naiveui.com/zh-CN/os-theme)
 - [Pinia](https://pinia.web3doc.top/introduction.html)
+- [dayjs](https://github.com/iamkun/dayjs)
 
+# 更新日志
+
+https://github.com/ymzcode/tianditu_piece/blob/main/CHANGELOG.md
 
 # 演示地址
 
