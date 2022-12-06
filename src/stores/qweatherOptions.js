@@ -15,7 +15,7 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
     citySearchValue: "",
     // 城市搜索完成后的结果
     citySearchRes: [],
-    // 混合天气展示开关
+    // 混合天气相关配置项
     mixedWeatherSwitch: {
       // 实时天气
       weatherNow: false,
@@ -31,6 +31,8 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
       coordinatePickup: null,
       // 拾点器获取的数据
       lnglat: null,
+      // 弹出框的开关
+      mapPopupShow: false,
     },
   }),
   actions: {
@@ -161,6 +163,7 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
       const cp = new window.T.CoordinatePickup(Tmap, {
         callback: (lnglat) => {
           console.log(lnglat);
+          this.mixedWeatherSwitch.mapPopupShow = false;
           const marker = new window.T.Marker(lnglat, {
             icon: new window.T.Icon({
               iconUrl: "/src/assets/img/map-icon/position-1.png",
@@ -171,18 +174,29 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
           searchOverLay(id)
             ? updateOverLay(id, marker)
             : addOverLay(id, marker);
-          Tmap.panTo(lnglat);
+          // Tmap.panTo(lnglat);
           this.mixedWeatherSwitch.lnglat = lnglat;
+          this.mixedWeatherSwitch.mapPopupShow = true;
         },
       });
       cp.addEvent();
       this.mixedWeatherSwitch.coordinatePickup = cp;
+      Tmap.addEventListener("movestart", this.movestartMapPopup);
+    },
+    /*
+     * movestart
+     * */
+    movestartMapPopup() {
+      this.mixedWeatherSwitch.mapPopupShow = false;
     },
     /*
      * 销毁拾点器
      * */
     removeMixedWeatherCoordinatePickup() {
-      const { removeOverLay } = useTiandituStore();
+      const { removeOverLay, Tmap } = useTiandituStore();
+      // 关闭弹出框
+      this.mixedWeatherSwitch.mapPopupShow = false;
+      Tmap.removeEventListener("movestart", this.movestartMapPopup);
       this.mixedWeatherSwitch.coordinatePickup &&
         this.mixedWeatherSwitch.coordinatePickup.removeEvent();
       this.mixedWeatherSwitch.coordinatePickup = null;

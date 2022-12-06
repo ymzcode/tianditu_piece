@@ -12,9 +12,12 @@ import MapOptions from "@/components/SettingItems/MapOptions.vue";
 import MarkerOptions from "@/components/SettingItems/MarkerOptions.vue";
 import { version } from "@/config";
 import QweatherOptions from "@/components/SettingItems/QweatherOptions.vue";
+import QweatherMixedWeather from "@/components/MapPopup/QweatherMixedWeather.vue";
+import { useQweatherOptionsStore } from "@/stores/qweatherOptions";
 
 // 展示抽屉
 const isShowModel = ref(false);
+const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
 </script>
 
 <template>
@@ -54,6 +57,10 @@ const isShowModel = ref(false);
       </div>
     </n-drawer-content>
   </n-drawer>
+  <!--  和风天气混合天气内容展示弹框-->
+  <qweather-mixed-weather
+    v-if="pinia_useQweatherOptionsStore.mixedWeatherSwitch.mapPopupShow"
+  ></qweather-mixed-weather>
 </template>
 
 <style scoped></style>
