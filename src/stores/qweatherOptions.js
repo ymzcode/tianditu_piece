@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 import { useTiandituStore } from "@/stores/tianditu";
 import { airNow, citySearch, localNationalStation } from "@/api/qweather";
 import { debounce } from "@/utils/common";
+import dayjs from "dayjs";
+// dayjs().locale('zh-cn').format()
 
 export const useQweatherOptionsStore = defineStore("QweatherOptions", {
   state: () => ({
@@ -88,11 +90,29 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
           );
           marker.addEventListener("click", function () {
             const _item = item;
-            const sContent = `${_item.POI_Name}`;
-            // console.log(_item)
+            let sContent = `${_item.POI_Name}<br>请求接口中···`;
             infoWin1.setContent(sContent);
             airNow({ location: _item.Location_ID }).then((airNowData) => {
-              console.log(airNowData);
+              // console.log(airNowData);
+              airNowData = airNowData.now;
+              sContent = `
+                <div class="flex flex-col items-center justify-center">
+                    <h2>${_item.POI_Name}</h2>
+                    <div>空气质量数据发布时间：<span class="text-red-400">${dayjs(
+                      airNowData.pubTime).format("YYYY-MM-DD HH:mm:ss") }</span></div>
+                    <div>空气质量指数：${airNowData.aqi}</div>
+                    <div>空气质量指数等级：${airNowData.level}</div>
+                    <div>空气质量指数级别：${airNowData.category}</div>
+                    <div>空气质量的主要污染物：${airNowData.primary}</div>
+                    <div>PM10：${airNowData.pm10}</div>
+                    <div>PM2.5：${airNowData.pm2p5}</div>
+                    <div>二氧化氮：${airNowData.no2}</div>
+                    <div>二氧化硫：${airNowData.so2}</div>
+                    <div>一氧化碳：${airNowData.co}</div>
+                    <div>臭氧：${airNowData.o3}</div>
+                </div>
+              `;
+              infoWin1.setContent(sContent);
             });
             marker.openInfoWindow(infoWin1);
           });
