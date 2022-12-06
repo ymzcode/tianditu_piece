@@ -39,6 +39,8 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
         });
       });
     }),
+    /*
+     * 城市搜索选中事件*/
     citySearchSelect(e) {
       console.log(e);
       // 定位当前城市，并标注

@@ -30,7 +30,10 @@ const city_renderLabel = (option) => [
     <!--      公告-->
     <n-list-item>
       <n-alert title="注意事项" type="warning">
-        <br />
+        调用和风天气接口需要先填写api key，详见：<a
+          href="https://dev.qweather.com/docs/configuration/project-and-key/"
+          >项目和KEY</a
+        >， 根据申请的类型切换免费或者付费订阅
       </n-alert>
     </n-list-item>
     <!--    和风天气key，url接口地址-->
@@ -58,7 +61,7 @@ const city_renderLabel = (option) => [
 
     <n-list-item>
       <div class="flex flex-col">
-        <div>城市搜索</div>
+        <div class="mb-2">城市搜索</div>
         <n-auto-complete
           v-model:value="pinia_useQweatherOptionsStore.citySearchValue"
           :input-props="{
@@ -72,8 +75,22 @@ const city_renderLabel = (option) => [
         />
       </div>
       <template #suffix>
-        <n-button class="mt-2" type="warning" @click="pinia_useQweatherOptionsStore.removeCitySearch">销毁</n-button>
+        <n-button
+          type="warning"
+          @click="pinia_useQweatherOptionsStore.removeCitySearch"
+          >销毁</n-button
+        >
       </template>
+    </n-list-item>
+
+    <n-list-item>
+      <div class="flex flex-col">
+        <div class="mb-2">空气质量监测站</div>
+        <n-button
+          type="info"
+          >加载全部站点</n-button
+        >
+      </div>
     </n-list-item>
   </n-list>
 </template>
