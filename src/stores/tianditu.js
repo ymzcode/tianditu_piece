@@ -112,6 +112,7 @@ export const useTiandituStore = defineStore("tianditu", {
      * 如果没有该id，则根据固定命名规则创建ID后添加视图
      * id ｜ 命名
      * overlays ｜ 可以传入单个视图或者数组
+     * 命名以_ARRAY_开头的覆盖物
      * 如 城市标点
      * */
     addOverLayForType(id, overlays) {
@@ -120,7 +121,7 @@ export const useTiandituStore = defineStore("tianditu", {
           window.$message.error(`addOverLayForType 参数不完整`);
         throw new Error(`addOverLayForType 参数不完整`);
       }
-      const ID = `_CLASS_${id}`;
+      const ID = `_ARRAY_${id}`;
       let lays = [];
       // 判断overlays是不是一个数组
       Array.isArray(overlays) ? (lays = overlays) : (lays = [overlays]);
@@ -134,7 +135,7 @@ export const useTiandituStore = defineStore("tianditu", {
     },
     /*
      * 移除某一种类的多个覆盖物
-     * 命名以_CLASS_开头的覆盖物
+     * 命名以_ARRAY_开头的覆盖物
      * */
     removeOverLayForType(id) {
       if (!id) {
@@ -142,7 +143,7 @@ export const useTiandituStore = defineStore("tianditu", {
           window.$message.error(`removeOverLayForType 参数不完整`);
         throw new Error(`removeOverLayForType 参数不完整`);
       }
-      const ID = `_CLASS_${id}`;
+      const ID = `_ARRAY_${id}`;
       // 检查是否不存在
       if (!this.mapOverLay[ID]) {
         isShowErrorMessage &&
