@@ -93,6 +93,25 @@ export const useTiandituStore = defineStore("tianditu", {
       this.Tmap.addOverLay(overlay);
     },
     /*
+     * 更新覆盖物
+     * */
+    updateOverLay(id, overlay, isRemoveOld = true) {
+      if (!id || !overlay) {
+        isShowErrorMessage && window.$message.error(`updateOverLay 参数不完整`);
+        throw new Error(`updateOverLay 参数不完整`);
+      }
+      // 检查是否不存在
+      if (!this.mapOverLay[id]) {
+        isShowErrorMessage &&
+          window.$message.error(`当前更新的覆盖物不存在:${id}`);
+        throw new Error(`当前更新的覆盖物不存在:${id}`);
+      }
+      // 默认移除旧的视图
+      isRemoveOld && this.removeOverLay(id);
+      this.mapOverLay[id] = overlay;
+      this.Tmap.addOverLay(overlay);
+    },
+    /*
      * 移除overLay覆盖物
      *
      * 1. 如果是MarkerClusterer，请使用removeMarkerClusterer
@@ -188,7 +207,10 @@ export const useTiandituStore = defineStore("tianditu", {
           window.$message.error(`当前存储的覆盖物已经存在:${id}`);
         throw new Error(`当前存储的覆盖物已经存在:${id}`);
       }
-      const _MarkerClusterer = new window.T.MarkerClusterer(this.Tmap, MarkerClustererOptions);
+      const _MarkerClusterer = new window.T.MarkerClusterer(
+        this.Tmap,
+        MarkerClustererOptions
+      );
       this.mapOverLay[id] = _MarkerClusterer;
       /*
        * this.Tmap.addOverLay(overlay);
