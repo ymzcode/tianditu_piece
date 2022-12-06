@@ -124,6 +124,13 @@ const loadKey = () => {
           加载项为全国空气质量监测站静态数据，点击某个站点才会调用接口
         </n-tooltip>
       </div>
+      <template #suffix>
+        <n-button
+          type="warning"
+          @click="pinia_useQweatherOptionsStore.removeNationalStation()"
+          >销毁</n-button
+        >
+      </template>
     </n-list-item>
   </n-list>
 </template>

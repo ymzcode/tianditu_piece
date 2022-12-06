@@ -71,9 +71,31 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
     /*
      * 加载全国监测站数据*/
     loadNationalStation() {
+      const { addMarkerClusterer } = useTiandituStore();
       localNationalStation().then((res) => {
         console.log(res);
+        const markerArr = [];
+        res.map((item) => {
+          const marker = new window.T.Marker(
+            new window.T.LngLat(item.POI_Longitude, item.POI_Latitude),
+            { title: item.POI_Name }
+          );
+          markerArr.push(marker);
+        });
+
+        // 使用项目自带的方法，方便统一管理
+        const _MarkerClusterer = addMarkerClusterer("nationalStation", {
+          markers: markerArr,
+        });
       });
+    },
+    /*
+     * 销毁全国监测站数据
+     * */
+    removeNationalStation() {
+      const { removeMarkerClusterer } = useTiandituStore();
+      // 从地图上彻底清除所有的标记。
+      removeMarkerClusterer("nationalStation");
     },
   },
 });

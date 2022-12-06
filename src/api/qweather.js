@@ -13,3 +13,11 @@ export function citySearch(data) {
     },
   });
 }
+
+// 全国监测站数据
+export function localNationalStation() {
+  return request({
+    url: `${import.meta.env.BASE_URL}json/POI-Air-Monitoring-Station-List-latest.json`,
+    method: "get",
+  });
+}
