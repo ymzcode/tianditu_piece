@@ -12,7 +12,7 @@ tianditu_piece是一个整合了天地图JavaScript API 4.0各种功能的项目
 
 # 特色
 1. 可分成线上、线下模拟展示最多20万幼儿园数据的加载效果
-2. 封装风场插件tmap-wind（详见：https://github.com/ymzcode/tmap-wind） ，
+2. 封装风场插件tmap-wind（详见：https://github.com/ymzcode/tmap-wind ），
 实现了天地图的风场可视化/风向图效果
 3. 正在开发中···
 
