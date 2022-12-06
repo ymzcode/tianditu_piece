@@ -131,6 +131,12 @@ export const useTiandituStore = defineStore("tianditu", {
       delete this.mapOverLay[id];
     },
     /*
+     * 查询覆盖物
+     * */
+    searchOverLay(id) {
+      return this.mapOverLay[id];
+    },
+    /*
      * 添加某一种类的多个覆盖物
      * 该方法不会检查添加的视图是否重复存在，只会在相应的id中累计添加，
      * 如果没有该id，则根据固定命名规则创建ID后添加视图
