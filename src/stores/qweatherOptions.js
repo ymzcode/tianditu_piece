@@ -155,11 +155,23 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
      * 注册混合天气拾点器
      * */
     createMixedWeatherCoordinatePickup() {
-      const { Tmap } = useTiandituStore();
+      const { Tmap, updateOverLay, searchOverLay, addOverLay } =
+        useTiandituStore();
       if (this.mixedWeatherSwitch.coordinatePickup) return;
       const cp = new window.T.CoordinatePickup(Tmap, {
         callback: (lnglat) => {
           console.log(lnglat);
+          const marker = new window.T.Marker(lnglat, {
+            icon: new window.T.Icon({
+              iconUrl: "/src/assets/img/map-icon/position-1.png",
+              iconSize: new window.T.Point(40, 40),
+            }),
+          });
+          const id = "mixedWeather";
+          searchOverLay(id)
+            ? updateOverLay(id, marker)
+            : addOverLay(id, marker);
+          Tmap.panTo(lnglat);
           this.mixedWeatherSwitch.lnglat = lnglat;
         },
       });
@@ -170,9 +182,11 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
      * 销毁拾点器
      * */
     removeMixedWeatherCoordinatePickup() {
+      const { removeOverLay } = useTiandituStore();
       this.mixedWeatherSwitch.coordinatePickup &&
         this.mixedWeatherSwitch.coordinatePickup.removeEvent();
       this.mixedWeatherSwitch.coordinatePickup = null;
+      removeOverLay("mixedWeather");
     },
   },
 });
