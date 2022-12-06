@@ -134,7 +134,7 @@ export const useTiandituStore = defineStore("tianditu", {
       lays.map((item) => {
         this.Tmap.addOverLay(item);
       });
-      console.log(overlays, lays);
+      // console.log(overlays, lays);
       this.mapOverLay[ID]
         ? (this.mapOverLay[ID] = this.mapOverLay[ID].concat(lays))
         : (this.mapOverLay[ID] = lays);
