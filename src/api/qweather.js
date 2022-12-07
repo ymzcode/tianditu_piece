@@ -49,3 +49,16 @@ export function weatherNow(data) {
     },
   });
 }
+
+// 7天天气预报
+export function weather7d(data) {
+  const { apiUrl, getApiKey } = useQweatherOptionsStore();
+  return request({
+    url: `${apiUrl}/v7/weather/7d`,
+    method: "get",
+    params: {
+      key: getApiKey(),
+      ...data,
+    },
+  });
+}
