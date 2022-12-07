@@ -36,3 +36,16 @@ export function airNow(data) {
     },
   });
 }
+
+// 实时天气接口
+export function weatherNow(data) {
+  const { apiUrl, getApiKey } = useQweatherOptionsStore();
+  return request({
+    url: `${apiUrl}/v7/weather/now`,
+    method: "get",
+    params: {
+      key: getApiKey(),
+      ...data,
+    },
+  });
+}
