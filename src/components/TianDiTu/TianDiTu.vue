@@ -3,6 +3,7 @@ import { onMounted } from "vue";
 import { useTiandituStore } from "@/stores/tianditu";
 import { useSettingStore } from "@/stores/setting";
 import { randomCreateMapType, randomCreateUrl } from "@/utils/demoUtils";
+import { loadJs } from "@/utils/common";
 
 onMounted(() => {
   loadJs(randomCreateUrl()).then((res) => {
@@ -18,23 +19,6 @@ onMounted(() => {
     map.setMapType(randomCreateMapType());
   });
 });
-
-// 动态加载js
-function loadJs(src) {
-  return new Promise((resolve, reject) => {
-    let script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = src;
-    document.body.appendChild(script);
-
-    script.onload = () => {
-      resolve("success");
-    };
-    script.onerror = () => {
-      reject("error");
-    };
-  });
-}
 </script>
 
 <template>
