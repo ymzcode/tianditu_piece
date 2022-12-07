@@ -43,3 +43,10 @@ export function loadJs(src) {
     };
   });
 }
+
+/*
+* 获取assets静态资源地址
+* */
+export function getAssetsFile(url) {
+  return new URL(url, import.meta.url).href;
+}
