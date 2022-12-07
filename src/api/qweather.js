@@ -88,3 +88,16 @@ export function minutely5m(data) {
     },
   });
 }
+
+// 天气指数预报
+export function indices1d(data) {
+  const { apiUrl, getApiKey } = useQweatherOptionsStore();
+  return request({
+    url: `${apiUrl}/v7/indices/3d`,
+    method: "get",
+    params: {
+      key: getApiKey(),
+      ...data,
+    },
+  });
+}

@@ -7,6 +7,7 @@ import { useTiandituStore } from "@/stores/tianditu";
 import WeatherD7 from "@/components/Qweather/WeatherD7.vue";
 import WeatherH24 from "@/components/Qweather/WeatherH24.vue";
 import MinutelyM5 from "@/components/Qweather/MinutelyM5.vue";
+import IndicesD1 from "@/components/Qweather/IndicesD1.vue";
 const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
 const pinia_useTiandituStore = useTiandituStore();
 
@@ -93,7 +94,7 @@ onMounted(() => {});
           display-directive="show:lazy"
           tab="天气指数预报"
         >
-          七里香
+          <indices-d1 :location="location" class="mixed-content"></indices-d1>
         </n-tab-pane>
       </n-tabs>
     </div>
