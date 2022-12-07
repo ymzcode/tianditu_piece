@@ -45,8 +45,9 @@ export function loadJs(src) {
 }
 
 /*
-* 获取assets静态资源地址
-* */
+ * 获取assets静态资源地址
+ * */
 export function getAssetsFile(url) {
+  console.log(url);
   return new URL(url, import.meta.url).href;
 }
