@@ -6,6 +6,7 @@ import { computed, onMounted, ref } from "vue";
 import { useTiandituStore } from "@/stores/tianditu";
 import WeatherD7 from "@/components/Qweather/WeatherD7.vue";
 import WeatherH24 from "@/components/Qweather/WeatherH24.vue";
+import MinutelyM5 from "@/components/Qweather/MinutelyM5.vue";
 const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
 const pinia_useTiandituStore = useTiandituStore();
 
@@ -37,11 +38,11 @@ const mixedStyle = computed(() => {
 // 拾点的坐标
 const location = ref("");
 
-onMounted(() => {
-  const lnglat = pinia_useQweatherOptionsStore.mixedWeatherSwitch.lnglat;
-  // 设置location
-  location.value = `${lnglat.lng},${lnglat.lat}`;
-});
+const lnglat = pinia_useQweatherOptionsStore.mixedWeatherSwitch.lnglat;
+// 设置location
+location.value = `${lnglat.lng},${lnglat.lat}`;
+
+onMounted(() => {});
 </script>
 
 <template>
@@ -81,13 +82,15 @@ onMounted(() => {
         <n-tab-pane
           v-if="pinia_useQweatherOptionsStore.mixedWeatherSwitch.minutely5m"
           name="minutely5m"
+          display-directive="show:lazy"
           tab="分钟级降水预报"
         >
-          七里香
+          <minutely-m5 :location="location" class="mixed-content"></minutely-m5>
         </n-tab-pane>
         <n-tab-pane
           v-if="pinia_useQweatherOptionsStore.mixedWeatherSwitch.indices1d"
           name="indices1d"
+          display-directive="show:lazy"
           tab="天气指数预报"
         >
           七里香
