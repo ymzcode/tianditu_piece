@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { useTiandituStore } from "@/stores/tianditu";
 import { airNow, citySearch, localNationalStation } from "@/api/qweather";
-import { debounce, getAssetsFile } from "@/utils/common";
+import { debounce } from "@/utils/common";
 import dayjs from "dayjs";
 import { nextTick } from "vue";
 // dayjs().locale('zh-cn').format()
@@ -74,7 +74,7 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
       const LngLat = new window.T.LngLat(e.lon, e.lat);
       const marker = new window.T.Marker(LngLat, {
         icon: new window.T.Icon({
-          iconUrl: getAssetsFile("/src/assets/img/map-icon/city-1.png"),
+          iconUrl: "/img/map-icon/city-1.png",
           iconSize: new window.T.Point(40, 40),
         }),
       });
@@ -167,7 +167,9 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
           this.mixedWeatherSwitch.mapPopupShow = false;
           const marker = new window.T.Marker(lnglat, {
             icon: new window.T.Icon({
-              iconUrl: getAssetsFile("../assets/img/map-icon/position-1.png"),
+              // 如果使用assets中的图片，请使用import的方式引入图片，build之后才会正常找到图片地址
+              // 使用public的图片无此问题
+              iconUrl: "/img/map-icon/position-1.png",
               iconSize: new window.T.Point(40, 40),
             }),
           });
