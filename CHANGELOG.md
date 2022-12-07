@@ -2,6 +2,26 @@
 
 项目版本变更都记录在此
 
+## 1.1.7
+
+已同步更新demo
+
+### Added
+
+- 完成天气混合展示-实时天气
+- 完成天气混合展示-7日天气预报
+- 完成天气混合展示-24小时天气预报
+- 完成天气混合展示-分钟级降水预报
+- 完成天气混合展示-天气指数预报
+
+### Changed
+
+- 修改天气混合展示详情组件的接参方式 location
+
+### Fixed
+
+- 修改弹窗不关闭的bug [commit](https://github.com/ymzcode/tianditu_piece/commit/992698eea971384d08074fe55d1f1c5afdbd182c)
+
 ## 1.1.6
 
 未更新发布demo
