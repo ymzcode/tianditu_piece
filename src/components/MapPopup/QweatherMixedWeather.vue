@@ -1,9 +1,10 @@
 <script setup>
-import { NTabs, NTabPane, NButton } from "naive-ui";
+import { NTabs, NTabPane } from "naive-ui";
 import { useQweatherOptionsStore } from "@/stores/qweatherOptions";
 import WeatherNow from "@/components/Qweather/WeatherNow.vue";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useTiandituStore } from "@/stores/tianditu";
+import WeatherD7 from "@/components/Qweather/WeatherD7.vue";
 const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
 const pinia_useTiandituStore = useTiandituStore();
 
@@ -17,6 +18,7 @@ const isEmpty = computed(() => {
     return false;
   }
 });
+
 // 动态设置弹出框的位置
 const mixedStyle = computed(() => {
   const { Tmap } = pinia_useTiandituStore;
@@ -29,6 +31,15 @@ const mixedStyle = computed(() => {
     top: `${t}px`,
     left: `${l}px`,
   };
+});
+
+// 拾点的坐标
+const location = ref("");
+
+onMounted(() => {
+  const lnglat = pinia_useQweatherOptionsStore.mixedWeatherSwitch.lnglat;
+  // 设置location
+  location.value = `${lnglat.lng},${lnglat.lat}`;
 });
 </script>
 
@@ -56,7 +67,7 @@ const mixedStyle = computed(() => {
           name="weather7d"
           tab="7日天气预报"
         >
-          七里香
+          <weather-d7 :location="location" class="mixed-content"></weather-d7>
         </n-tab-pane>
         <n-tab-pane
           v-if="pinia_useQweatherOptionsStore.mixedWeatherSwitch.weather24h"
