@@ -3,6 +3,7 @@ import { useTiandituStore } from "@/stores/tianditu";
 import { airNow, citySearch, localNationalStation } from "@/api/qweather";
 import { debounce } from "@/utils/common";
 import dayjs from "dayjs";
+import { nextTick } from "vue";
 // dayjs().locale('zh-cn').format()
 
 export const useQweatherOptionsStore = defineStore("QweatherOptions", {
@@ -162,7 +163,7 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
       if (this.mixedWeatherSwitch.coordinatePickup) return;
       const cp = new window.T.CoordinatePickup(Tmap, {
         callback: (lnglat) => {
-          console.log(lnglat);
+          // console.log(lnglat);
           this.mixedWeatherSwitch.mapPopupShow = false;
           const marker = new window.T.Marker(lnglat, {
             icon: new window.T.Icon({
@@ -176,7 +177,10 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
             : addOverLay(id, marker);
           // Tmap.panTo(lnglat);
           this.mixedWeatherSwitch.lnglat = lnglat;
-          this.mixedWeatherSwitch.mapPopupShow = true;
+          // 防止弹窗不更新关闭
+          nextTick(() => {
+            this.mixedWeatherSwitch.mapPopupShow = true;
+          });
         },
       });
       cp.addEvent();
