@@ -74,7 +74,7 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
       const LngLat = new window.T.LngLat(e.lon, e.lat);
       const marker = new window.T.Marker(LngLat, {
         icon: new window.T.Icon({
-          iconUrl: "/img/map-icon/city-1.png",
+          iconUrl: import.meta.env.BASE_URL + "img/map-icon/city-1.png",
           iconSize: new window.T.Point(40, 40),
         }),
       });
@@ -169,7 +169,7 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
             icon: new window.T.Icon({
               // 如果使用assets中的图片，请使用import的方式引入图片，build之后才会正常找到图片地址
               // 使用public的图片无此问题
-              iconUrl: "/img/map-icon/position-1.png",
+              iconUrl: import.meta.env.BASE_URL + "img/map-icon/position-1.png",
               iconSize: new window.T.Point(40, 40),
             }),
           });
