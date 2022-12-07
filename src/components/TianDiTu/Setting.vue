@@ -6,6 +6,7 @@ import {
   NCollapse,
   NCollapseItem,
   NTag,
+  NButton,
 } from "naive-ui";
 import ControlOptions from "@/components/SettingItems/ControlOptions.vue";
 import MapOptions from "@/components/SettingItems/MapOptions.vue";
@@ -50,6 +51,18 @@ const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
             <marker-options></marker-options>
           </n-collapse-item>
           <n-collapse-item title="和风天气" name="4">
+            <template #header-extra>
+              <n-button
+                size="tiny"
+                text
+                tag="a"
+                href="https://www.qweather.com"
+                target="_blank"
+                type="primary"
+              >
+                天气服务由和风天气驱动
+              </n-button>
+            </template>
             <!--            和风天气选项组件-->
             <qweather-options></qweather-options>
           </n-collapse-item>
