@@ -167,7 +167,7 @@ export const useQweatherOptionsStore = defineStore("QweatherOptions", {
           this.mixedWeatherSwitch.mapPopupShow = false;
           const marker = new window.T.Marker(lnglat, {
             icon: new window.T.Icon({
-              iconUrl: getAssetsFile("/src/assets/img/map-icon/position-1.png"),
+              iconUrl: getAssetsFile("../assets/img/map-icon/position-1.png"),
               iconSize: new window.T.Point(40, 40),
             }),
           });
