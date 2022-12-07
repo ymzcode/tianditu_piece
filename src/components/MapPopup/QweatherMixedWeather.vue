@@ -5,6 +5,7 @@ import WeatherNow from "@/components/Qweather/WeatherNow.vue";
 import { computed, onMounted, ref } from "vue";
 import { useTiandituStore } from "@/stores/tianditu";
 import WeatherD7 from "@/components/Qweather/WeatherD7.vue";
+import WeatherH24 from "@/components/Qweather/WeatherH24.vue";
 const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
 const pinia_useTiandituStore = useTiandituStore();
 
@@ -24,7 +25,7 @@ const mixedStyle = computed(() => {
   const { Tmap } = pinia_useTiandituStore;
   const { mixedWeatherSwitch } = pinia_useQweatherOptionsStore;
   const point = Tmap && Tmap.lngLatToContainerPoint(mixedWeatherSwitch.lnglat);
-  console.log(point);
+  // console.log(point);
   const t = point.y - 180;
   const l = point.x + 25;
   return {
@@ -72,9 +73,10 @@ onMounted(() => {
         <n-tab-pane
           v-if="pinia_useQweatherOptionsStore.mixedWeatherSwitch.weather24h"
           name="weather24h"
+          display-directive="show:lazy"
           tab="24小时天气预报"
         >
-          七里香
+          <weather-h24 :location="location" class="mixed-content"></weather-h24>
         </n-tab-pane>
         <n-tab-pane
           v-if="pinia_useQweatherOptionsStore.mixedWeatherSwitch.minutely5m"

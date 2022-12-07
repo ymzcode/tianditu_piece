@@ -62,3 +62,16 @@ export function weather7d(data) {
     },
   });
 }
+
+// 24小时天气预报
+export function weather24h(data) {
+  const { apiUrl, getApiKey } = useQweatherOptionsStore();
+  return request({
+    url: `${apiUrl}/v7/weather/24h`,
+    method: "get",
+    params: {
+      key: getApiKey(),
+      ...data,
+    },
+  });
+}
