@@ -75,3 +75,16 @@ export function weather24h(data) {
     },
   });
 }
+
+// 分钟降水预报
+export function minutely5m(data) {
+  const { apiUrl, getApiKey } = useQweatherOptionsStore();
+  return request({
+    url: `${apiUrl}/v7/minutely/5m`,
+    method: "get",
+    params: {
+      key: getApiKey(),
+      ...data,
+    },
+  });
+}
