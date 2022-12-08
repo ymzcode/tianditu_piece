@@ -15,6 +15,7 @@ import { version } from "@/config";
 import QweatherOptions from "@/components/SettingItems/QweatherOptions.vue";
 import QweatherMixedWeather from "@/components/MapPopup/QweatherMixedWeather.vue";
 import { useQweatherOptionsStore } from "@/stores/qweatherOptions";
+import EchartsOptions from "@/components/SettingItems/EchartsOptions.vue";
 
 // 展示抽屉
 const isShowModel = ref(false);
@@ -65,6 +66,10 @@ const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
             </template>
             <!--            和风天气选项组件-->
             <qweather-options></qweather-options>
+          </n-collapse-item>
+          <n-collapse-item title="Echarts图表" name="5">
+            <!--            echarts应用组件-->
+            <echarts-options></echarts-options>
           </n-collapse-item>
         </n-collapse>
       </div>
