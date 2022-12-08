@@ -48,11 +48,15 @@ export const useEchartsOptionsStore = defineStore("echartsOptions", {
           Tmap.disableDoubleClickZoom();
         });
         myChart.on("mouseout", function (params) {
-          Tmap.disableDrag();
-          Tmap.disableScrollWheelZoom();
-          Tmap.disableDoubleClickZoom();
+          Tmap.enableDrag();
+          Tmap.enableScrollWheelZoom();
+          Tmap.enableDoubleClickZoom();
         });
       });
+    },
+    removePieChartDemo() {
+      const { removeOverLay } = useTiandituStore();
+      removeOverLay("echarts1");
     },
   },
 });

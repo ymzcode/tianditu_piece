@@ -15,11 +15,20 @@ const pinia_useEchartsOptionsStore = useEchartsOptionsStore();
           说明：你可以添加echarts中几乎所有的图表叠放到地图中
         </div>
         <div>
-          <n-button type="info" @click="pinia_useEchartsOptionsStore.createPieChartDemo"
+          <n-button
+            type="info"
+            @click="pinia_useEchartsOptionsStore.createPieChartDemo"
             >试试添加一个饼图</n-button
           >
         </div>
       </div>
+      <template #suffix>
+        <n-button
+          type="warning"
+          @click="pinia_useEchartsOptionsStore.removePieChartDemo"
+          >销毁</n-button
+        >
+      </template>
     </n-list-item>
   </n-list>
 </template>
