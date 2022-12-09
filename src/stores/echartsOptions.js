@@ -54,6 +54,12 @@ export const useEchartsOptionsStore = defineStore("echartsOptions", {
           {
             width: 300,
             echartsOptions: _option,
+            updateCallBack: (chartView, map) => {
+              console.log(chartView, map);
+              console.log(map.getZoom());
+              console.log(chartView.getDom());
+              console.log(this);
+            },
           }
         );
         this.addEcharts("echarts1", overlay);
