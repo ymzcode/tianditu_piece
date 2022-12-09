@@ -33,9 +33,10 @@ const latTest = (val) => {
             >试试添加一个饼图</n-button
           >
           <n-button
-              type="info"
-              @click="pinia_useEchartsOptionsStore.createScatterColor"
-          >试试添加一个散点图</n-button
+            class="ml-2"
+            type="info"
+            @click="pinia_useEchartsOptionsStore.createScatterColor"
+            >试试添加一个散点图</n-button
           >
         </div>
       </div>
