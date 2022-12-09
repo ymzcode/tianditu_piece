@@ -86,7 +86,7 @@ const echartsMapOverlay = window.T.Overlay.extend({
    * echarts的option
    * */
   refreshEchartsOption(option) {
-    const _option = Object.assign(this.options, option);
+    const _option = Object.assign({}, option);
     this.chartView.setOption(_option);
   },
   onRemove: function () {
