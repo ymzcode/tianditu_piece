@@ -58,8 +58,11 @@ const echartsMapOverlay = window.T.Overlay.extend({
    * 初始化echarts
    * */
   initEcharts() {
-    // 基于准备好的dom，初始化echarts实例
-    const myChart = (this.chartView = echarts.init(this._div));
+    if (!this.chartView) {
+      // 基于准备好的dom，初始化echarts实例
+      this.chartView = echarts.init(this._div);
+    }
+    const myChart = this.chartView;
     // 绘制图表
     myChart.setOption(this.echartsOptions);
   },
