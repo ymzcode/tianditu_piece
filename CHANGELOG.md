@@ -2,6 +2,16 @@
 
 项目版本变更都记录在此
 
+## 1.1.8
+
+### Added
+
+- 添加echarts包
+- 添加echarts-gl包
+- 新增设置-Echarts图表-演示示例
+- 新增设置-Echarts图表-自定义echarts图表
+- 添加echarts自定义覆盖物方法，封装发布为插件[tmap-echarts](https://github.com/ymzcode/tmap-echarts)
+
 ## 1.1.7
 
 已同步更新demo
