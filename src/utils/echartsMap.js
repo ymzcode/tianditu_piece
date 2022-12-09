@@ -24,7 +24,11 @@ const echartsMapOverlay = window.T.Overlay.extend({
     // 创建完成后的chart视图
     this.chartView = null;
     // 比例系数 默认为1
-    this.sacleNum = 1 || this.options.sacleNum;
+    this.scaleNum = 1 || this.options.scaleNum;
+    // 是否禁用自动缩放
+    this.isDisScale = options.isDisScale;
+    // update的回调函数
+    this.updateCallBack = options.updateCallBack;
     this.map = null;
   },
   /*
@@ -76,10 +80,12 @@ const echartsMapOverlay = window.T.Overlay.extend({
   getChart() {
     return this.chartView;
   },
+  updateOption() {},
   /*
    * 刷新数据&配置项
+   * echarts的option
    * */
-  refreshOption(option) {
+  refreshEchartsOption(option) {
     const _option = Object.assign(this.options, option);
     this.chartView.setOption(_option);
   },
@@ -89,19 +95,24 @@ const echartsMapOverlay = window.T.Overlay.extend({
       parent.removeChild(this._div);
       this.map = null;
       this._div = null;
+      this.chartView = null;
     }
   },
   /**
    * 更新位置
    */
   update: function () {
-    var pos = this.map.lngLatToLayerPoint(this.lnglat);
+    const pos = this.map.lngLatToLayerPoint(this.lnglat);
     // 获取当前放大缩小的级别
     const zoom = this.map.getZoom();
     // 根据比例系数设置放大缩小时图表的宽高
     // 缩放级别为1-18 ， 默认10为原始宽高，其他级别根据计算进行变更宽高
-    const _width = (zoom / 10) * this.width * this.sacleNum;
-    const _height = (zoom / 10) * this.height * this.sacleNum;
+    const _width = this.isDisScale
+      ? this.width
+      : (zoom / 10) * this.width * this.scaleNum;
+    const _height = this.isDisScale
+      ? this.height
+      : (zoom / 10) * this.height * this.scaleNum;
 
     this._div.style.top = pos.y - _height / 2 + "px";
     this._div.style.left = pos.x - _width / 2 + "px";
@@ -113,8 +124,15 @@ const echartsMapOverlay = window.T.Overlay.extend({
         width: _width,
         height: _height,
       });
+    // console.log(this.updateCallBack);
     // console.log(this._div.style.width);
     this.initEcharts();
+
+    const map = this.map;
+    const chartView = this.chartView;
+    if (typeof this.updateCallBack == "function") {
+      this.updateCallBack.call(this, chartView, map);
+    }
   },
 });
 
