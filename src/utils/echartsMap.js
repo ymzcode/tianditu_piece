@@ -23,6 +23,8 @@ const echartsMapOverlay = window.T.Overlay.extend({
     this._div = null;
     // 创建完成后的chart视图
     this.chartView = null;
+    // 比例系数 默认为1
+    this.sacleNum = 1 || this.options.sacleNum;
     this.map = null;
   },
   /*
@@ -94,8 +96,24 @@ const echartsMapOverlay = window.T.Overlay.extend({
    */
   update: function () {
     var pos = this.map.lngLatToLayerPoint(this.lnglat);
-    this._div.style.top = pos.y - this.height / 2 + "px";
-    this._div.style.left = pos.x - this.width / 2 + "px";
+    // 获取当前放大缩小的级别
+    const zoom = this.map.getZoom();
+    // 根据比例系数设置放大缩小时图表的宽高
+    // 缩放级别为1-18 ， 默认10为原始宽高，其他级别根据计算进行变更宽高
+    const _width = (zoom / 10) * this.width * this.sacleNum;
+    const _height = (zoom / 10) * this.height * this.sacleNum;
+
+    this._div.style.top = pos.y - _height / 2 + "px";
+    this._div.style.left = pos.x - _width / 2 + "px";
+
+    this._div.style.width = _width + "px";
+    this._div.style.height = _height + "px";
+    this.chartView &&
+      this.chartView.resize({
+        width: _width,
+        height: _height,
+      });
+    // console.log(this._div.style.width);
     this.initEcharts();
   },
 });
