@@ -14,9 +14,12 @@ export const useChatGptOptionsStore = defineStore("chatGptOptions", {
       }).then((res) => {
         console.log(res);
         if (res.status === 200) {
-
+          const { choices } = res.data;
+          choices.map((item) => {
+            this.msgText = this.msgText + item.text;
+          });
         } else {
-          window.$message.error('oppos, 请求出现错误了！')
+          window.$message.error("oops, 请求出现错误了！");
         }
       });
     },
