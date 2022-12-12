@@ -16,6 +16,7 @@ import QweatherOptions from "@/components/SettingItems/QweatherOptions.vue";
 import QweatherMixedWeather from "@/components/MapPopup/QweatherMixedWeather.vue";
 import { useQweatherOptionsStore } from "@/stores/qweatherOptions";
 import EchartsOptions from "@/components/SettingItems/EchartsOptions.vue";
+import ChatGptOptions from "@/components/SettingItems/ChatGptOptions.vue";
 
 // 展示抽屉
 const isShowModel = ref(false);
@@ -70,6 +71,10 @@ const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
           <n-collapse-item title="Echarts图表" name="5">
             <!--            echarts应用组件-->
             <echarts-options></echarts-options>
+          </n-collapse-item>
+          <n-collapse-item title="chatGPL" name="6">
+            <!--            echarts应用组件-->
+            <chat-gpt-options></chat-gpt-options>
           </n-collapse-item>
         </n-collapse>
       </div>
