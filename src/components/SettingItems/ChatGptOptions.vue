@@ -1,5 +1,13 @@
 <script setup>
-import { NList, NListItem, NInput, NButton, NEmpty } from "naive-ui";
+import {
+  NList,
+  NListItem,
+  NInput,
+  NButton,
+  NEmpty,
+  NSkeleton,
+  NSpin,
+} from "naive-ui";
 import { useChatGptOptionsStore } from "@/stores/chatGptOptions";
 import { computed } from "vue";
 
@@ -21,15 +29,26 @@ const historyChatArr = computed(() => {
 <template>
   <n-list>
     <n-list-item>
-      <div class="mb-8">
+      <div class="mb-8 p-10 bg-gray-600 rounded-lg">
         <n-empty
           v-if="pinia_useChatGptOptionsStore.userHistoryTextArr.length === 0"
           description="还没有聊天记录"
         >
         </n-empty>
         <div class="flex flex-col">
-          <div v-for="(item, index) in historyChatArr" :key="item.text + index">
-            {{ item.text }}
+          <div
+            class="text-white"
+            v-for="(item, index) in historyChatArr"
+            :key="item.text + index"
+          >
+            <span v-if="item.role === 'user'">你说：</span> {{ item.text }}
+          </div>
+          <div
+            v-if="pinia_useChatGptOptionsStore.isGetChatGptLoading"
+            class="flex flex-row items-center"
+          >
+            <span class="text-white mr-2">思考中···</span>
+            <n-spin stroke="#fff" size="small" />
           </div>
         </div>
       </div>
@@ -43,6 +62,7 @@ const historyChatArr = computed(() => {
           placeholder="试试看chatGpt能做什么"
         />
         <n-button
+          :loading="pinia_useChatGptOptionsStore.isGetChatGptLoading"
           class="mt-2"
           type="primary"
           @click="pinia_useChatGptOptionsStore.sendChatGptMsg"
