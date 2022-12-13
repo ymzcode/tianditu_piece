@@ -13,9 +13,10 @@ tianditu_piece是一个以天地图JavaScript API 4.0为基础，整合地图应
 # 功能
 - [x] 天地图的基础框架，包含全局视图管理中心（stores/tianditu.js）
 - [x] 模拟线上、线下展示最多20万海量数据（全国幼儿园数据）的加载效果
-- [x] 天地图的风场可视化/风向图效果,并封装风场插件tmap-wind（详见：https://github.com/ymzcode/tmap-wind ）
+- [x] 实现天地图的风场可视化/风向图效果，封装插件[tmap-wind](https://github.com/ymzcode/tmap-wind)
 - [x] 在线调试和风天气中城市搜索、分钟预报、天气指数、空气质量等在天地图的应用效果
-- [ ] 让Echarts（包含3D）绝大部分图表在天地图图层中展示
+- [x] 在地图图层中展示Echarts（包含3D）等绝大部分图表（[tmap-echarts](https://github.com/ymzcode/tmap-echarts)）
+- [x] 【**实验功能**】通过和chatGpt对话，可以调用地图中的方法
 - [ ] 其他功能思考🤔&开发👾中···
 
 # 各依赖项
