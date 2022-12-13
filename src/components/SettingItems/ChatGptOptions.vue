@@ -7,6 +7,8 @@ import {
   NEmpty,
   NSkeleton,
   NSpin,
+  NIcon,
+  NPopover,
 } from "naive-ui";
 import { useChatGptOptionsStore } from "@/stores/chatGptOptions";
 import { computed } from "vue";
@@ -29,7 +31,33 @@ const historyChatArr = computed(() => {
 <template>
   <n-list>
     <n-list-item>
-      <div class="mb-8 p-10 bg-gray-600 rounded-lg">
+      <div class="mb-8 p-10 bg-gray-600 relative rounded-lg">
+        <n-popover trigger="hover">
+          <template #trigger>
+            <n-button
+              @click="pinia_useChatGptOptionsStore.clearHistoryText"
+              class="absolute right-3 top-3"
+              quaternary
+              circle
+            >
+              <template #icon>
+                <n-icon
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 0 32 32"
+                  >
+                    <path
+                      d="M24 9.4L22.6 8L16 14.6L9.4 8L8 9.4l6.6 6.6L8 22.6L9.4 24l6.6-6.6l6.6 6.6l1.4-1.4l-6.6-6.6L24 9.4z"
+                      fill="currentColor"
+                    ></path></svg
+                ></n-icon>
+              </template>
+            </n-button>
+          </template>
+          <span>清空聊天记录，重置上下文关系</span>
+        </n-popover>
+
         <n-empty
           v-if="pinia_useChatGptOptionsStore.userHistoryTextArr.length === 0"
           description="还没有聊天记录"

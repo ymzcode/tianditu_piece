@@ -50,6 +50,9 @@ export const useChatGptOptionsStore = defineStore("chatGptOptions", {
         }
       });
     },
+    /*
+     * 保存用户的聊天记录
+     * */
     saveUserHistoryText(text) {
       this.userHistoryTextArr.push({
         time: Date.now(),
@@ -58,20 +61,33 @@ export const useChatGptOptionsStore = defineStore("chatGptOptions", {
       });
       this.msgText = "";
     },
+    /*
+     * 保存Gpt的聊天记录
+     * */
     saveChatGptHistoryText(textObj) {
       const length = this.chatGptHistoryTextArr.length;
       // 如果上一个不是stop结束
-      if (length > 0 && this.chatGptHistoryTextArr[length - 1].finish_reason === "length") {
+      if (
+        length > 0 &&
+        this.chatGptHistoryTextArr[length - 1].finish_reason === "length"
+      ) {
         // 拼接未完成的语句
-        this.chatGptHistoryTextArr[length - 1].text += textObj.text
+        this.chatGptHistoryTextArr[length - 1].text += textObj.text;
         // 判断当前textObj是否是stop
         if (textObj.finish_reason === "stop") {
           // 将当前状态改为结束
-          this.chatGptHistoryTextArr[length - 1].finish_reason = 'stop'
+          this.chatGptHistoryTextArr[length - 1].finish_reason = "stop";
         }
       } else {
         this.chatGptHistoryTextArr.push(textObj);
       }
+    },
+    /*
+     * 清空聊天记录
+     * */
+    clearHistoryText() {
+      this.chatGptHistoryTextArr = [];
+      this.userHistoryTextArr = [];
     },
   },
 });
