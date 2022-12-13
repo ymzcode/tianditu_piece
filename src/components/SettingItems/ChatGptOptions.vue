@@ -52,7 +52,7 @@ const historyChatArr = computed(() => {
           </div>
         </div>
       </div>
-      <div class="flex flex-col">
+      <div class="flex flex-col relative">
         <n-input
           v-model:value="pinia_useChatGptOptionsStore.msgText"
           type="textarea"

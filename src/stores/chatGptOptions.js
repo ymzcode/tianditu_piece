@@ -60,10 +60,15 @@ export const useChatGptOptionsStore = defineStore("chatGptOptions", {
     },
     saveChatGptHistoryText(textObj) {
       const length = this.chatGptHistoryTextArr.length;
-      if (textObj.finish_reason !== "stop" && length > 0) {
-        this.chatGptHistoryTextArr[length - 1].finish_reason === "stop"
-          ? this.chatGptHistoryTextArr.push(textObj)
-          : (this.chatGptHistoryTextArr[length - 1].text += textObj.text);
+      // 如果上一个不是stop结束
+      if (length > 0 && this.chatGptHistoryTextArr[length - 1].finish_reason === "length") {
+        // 拼接未完成的语句
+        this.chatGptHistoryTextArr[length - 1].text += textObj.text
+        // 判断当前textObj是否是stop
+        if (textObj.finish_reason === "stop") {
+          // 将当前状态改为结束
+          this.chatGptHistoryTextArr[length - 1].finish_reason = 'stop'
+        }
       } else {
         this.chatGptHistoryTextArr.push(textObj);
       }
