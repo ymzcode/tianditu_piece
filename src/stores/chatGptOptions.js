@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { useTiandituStore } from "@/stores/tianditu";
 import { getChatGpt } from "@/api/mapDataAPi";
+import { useControlOptionsStore } from "@/stores/controlOptions";
 
 export const useChatGptOptionsStore = defineStore("chatGptOptions", {
   state: () => ({
@@ -45,6 +46,7 @@ export const useChatGptOptionsStore = defineStore("chatGptOptions", {
             this.sendChatGptMsg();
             console.log("接着请求");
           }
+          this.matchKeywordsChatGpt(choices[0].text);
         } else {
           window.$message.error("oops, 请求出现错误了！");
         }
@@ -88,6 +90,28 @@ export const useChatGptOptionsStore = defineStore("chatGptOptions", {
     clearHistoryText() {
       this.chatGptHistoryTextArr = [];
       this.userHistoryTextArr = [];
+    },
+    /*
+     * 通过ai返回的code关键词，调用相应的方法
+     * */
+    matchKeywordsChatGpt(text) {
+      const { createCopyright, removeCopyright, switchShowCopyright } =
+        useControlOptionsStore();
+      // 定义code数据集合
+      const arr = [
+        { text: "生成版权控件", code: "createCopyright", fun: createCopyright },
+        { text: "销毁版权控件", code: "removeCopyright", fun: removeCopyright },
+        {
+          text: "开关版权控件",
+          code: "switchShowCopyright",
+          fun: switchShowCopyright,
+        },
+      ];
+      arr.map((item) => {
+        if (text.indexOf(item.code) > -1) {
+          item.fun();
+        }
+      });
     },
   },
 });
