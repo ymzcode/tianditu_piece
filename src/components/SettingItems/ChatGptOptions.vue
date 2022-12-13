@@ -9,6 +9,7 @@ import {
   NSpin,
   NIcon,
   NPopover,
+  NAlert,
 } from "naive-ui";
 import { useChatGptOptionsStore } from "@/stores/chatGptOptions";
 import { computed } from "vue";
@@ -30,6 +31,21 @@ const historyChatArr = computed(() => {
 
 <template>
   <n-list>
+    <n-list-item>
+      <n-alert title="注意事项" type="warning">
+        1. chatGpt是一个可以应用于任何涉及理解或生成自然语言或代码的AI，详见<a
+          href="https://beta.openai.com/docs/introduction"
+          target="_blank"
+          >OpenAI</a
+        >
+        <br />
+        2.
+        本功能调用模型为text-davinci-003，为实验功能，提前内置了一种规则。可以实现简单的调用地图中的方法。
+        <br />
+        3.
+        由于openai本身为收费api，目前还在公测后期可能采用某种限制，本功能为实验性质，后续版本随时会移除。
+      </n-alert>
+    </n-list-item>
     <n-list-item>
       <div class="mb-8 p-10 bg-gray-600 relative rounded-lg">
         <n-popover trigger="hover">

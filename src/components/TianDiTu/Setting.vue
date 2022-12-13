@@ -72,7 +72,7 @@ const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
             <!--            echarts应用组件-->
             <echarts-options></echarts-options>
           </n-collapse-item>
-          <n-collapse-item title="chatGPL" name="6">
+          <n-collapse-item title="chatGPL（实验）" name="6">
             <!--            echarts应用组件-->
             <chat-gpt-options></chat-gpt-options>
           </n-collapse-item>
