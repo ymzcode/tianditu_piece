@@ -4,6 +4,13 @@ tianditu_piece是一个以天地图JavaScript API 4.0为基础，整合地图应
 
 关于天地图JavaScript API 4.0的更多介绍可以查看: [天地图官网](http://lbs.tianditu.gov.cn/api/js4.0/guide.html)
 
+# 安装&运行
+
+```
+npm install
+npm run dev
+```
+
 # 注意
 
 1. 因为项目资源配额有限（每天1W），所以做了token、地图类型的随机分发，如果当前地图无法正常查看，请尝试重新刷新页面
