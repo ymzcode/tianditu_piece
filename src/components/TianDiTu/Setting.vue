@@ -31,7 +31,11 @@ const drawerUpWid = (e) => {
   pinia_useSettingStore.drawerWidth = e;
   setTimeout(() => {
     pinia_useTiandituStore.Tmap.checkResize();
-  }, 300)
+  }, 300);
+};
+
+const afterEnterDrawer = (e) => {
+  drawerUpWid(e.clientWidth);
 };
 </script>
 
@@ -51,7 +55,7 @@ const drawerUpWid = (e) => {
     :show-mask="false"
     :mask-closable="false"
     @update-width="drawerUpWid"
-    @after-enter="drawerUpWid(450)"
+    @after-enter="afterEnterDrawer"
     @after-leave="drawerUpWid(0)"
   >
     <n-drawer-content title="地图设置" closable>
