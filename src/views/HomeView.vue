@@ -5,7 +5,7 @@ import Setting from "@/components/TianDiTu/Setting.vue";
 
 <template>
   <main>
-    <div class="absolute w-full h-full">
+    <div style="width: 100vw;height: 100vh">
       <tian-di-tu></tian-di-tu>
       <setting></setting>
     </div>

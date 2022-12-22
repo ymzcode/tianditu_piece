@@ -17,10 +17,22 @@ import QweatherMixedWeather from "@/components/MapPopup/QweatherMixedWeather.vue
 import { useQweatherOptionsStore } from "@/stores/qweatherOptions";
 import EchartsOptions from "@/components/SettingItems/EchartsOptions.vue";
 import ChatGptOptions from "@/components/SettingItems/ChatGptOptions.vue";
+import { useSettingStore } from "@/stores/setting";
+import { useTiandituStore } from "@/stores/tianditu";
 
 // 展示抽屉
 const isShowModel = ref(false);
 const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
+const pinia_useSettingStore = useSettingStore();
+const pinia_useTiandituStore = useTiandituStore();
+
+const drawerUpWid = (e) => {
+  // console.log(e);
+  pinia_useSettingStore.drawerWidth = e;
+  setTimeout(() => {
+    pinia_useTiandituStore.Tmap.checkResize();
+  }, 300)
+};
 </script>
 
 <template>
@@ -32,7 +44,16 @@ const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
   >
     设置
   </div>
-  <n-drawer v-model:show="isShowModel" :width="500">
+  <n-drawer
+    v-model:show="isShowModel"
+    default-width="450"
+    resizable
+    :show-mask="false"
+    :mask-closable="false"
+    @update-width="drawerUpWid"
+    @after-enter="drawerUpWid(450)"
+    @after-leave="drawerUpWid(0)"
+  >
     <n-drawer-content title="地图设置" closable>
       <template #header>
         地图设置
