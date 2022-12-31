@@ -5,6 +5,9 @@
         <n-button @click="pinia_useEldenRingOptionsStore.initEldenRingMap"
           >加载地图</n-button
         >
+        <n-button @click="pinia_useEldenRingOptionsStore.removeEldenRingMap"
+          >移除地图</n-button
+        >
       </div>
     </n-list-item>
   </n-list>
