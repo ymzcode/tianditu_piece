@@ -19,6 +19,7 @@ import EchartsOptions from "@/components/SettingItems/EchartsOptions.vue";
 import ChatGptOptions from "@/components/SettingItems/ChatGptOptions.vue";
 import { useSettingStore } from "@/stores/setting";
 import { useTiandituStore } from "@/stores/tianditu";
+import EldenRingOptions from "@/components/SettingItems/EldenRingOptions.vue";
 
 // 展示抽屉
 const isShowModel = ref(false);
@@ -100,6 +101,9 @@ const afterEnterDrawer = (e) => {
           <n-collapse-item title="chatGPL（实验）" name="6">
             <!--            echarts应用组件-->
             <chat-gpt-options></chat-gpt-options>
+          </n-collapse-item>
+          <n-collapse-item title="艾尔登法环（Elden Ring）" name="7">
+            <elden-ring-options></elden-ring-options>
           </n-collapse-item>
         </n-collapse>
       </div>
