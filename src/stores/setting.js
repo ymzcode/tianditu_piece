@@ -22,10 +22,10 @@ export const useSettingStore = defineStore("setting", {
       } = useControlOptionsStore();
       createCopyright();
       createZoomControl();
-      createScaleControl();
-      createOverviewMap();
-      createMapTypeControl();
-      createMilitarySymbols();
+      // createScaleControl();
+      // createOverviewMap();
+      // createMapTypeControl();
+      // createMilitarySymbols();
       window.$mapControl = mapControl;
     },
   },

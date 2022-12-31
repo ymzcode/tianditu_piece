@@ -94,8 +94,8 @@ export const useControlOptionsStore = defineStore("controlOptions", {
       const { Tmap, addControl } = useTiandituStore();
       const copyControl = new window.T.Control.Zoom({
         position: window.T_ANCHOR_TOP_LEFT,
-        zoomInText: "🔼",
-        zoomOutText: "🔽",
+        // zoomInText: "🔼",
+        // zoomOutText: "🔽",
       });
       addControl("zoomControl", copyControl);
     },
