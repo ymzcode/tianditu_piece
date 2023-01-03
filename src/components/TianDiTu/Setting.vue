@@ -66,7 +66,7 @@ const afterEnterDrawer = (e) => {
       </template>
       <div class="flex flex-col">
         <n-collapse>
-          <n-collapse-item title="地图属性控制" name="1">
+          <n-collapse-item title="地图属性" name="1">
             <!--            地图选项组件-->
             <map-options></map-options>
           </n-collapse-item>
