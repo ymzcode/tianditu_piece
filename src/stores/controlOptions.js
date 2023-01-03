@@ -10,13 +10,13 @@ export const useControlOptionsStore = defineStore("controlOptions", {
     // 是否展示缩放控件
     isShowZoomControl: true,
     // 是否展示比例尺
-    isShowScaleControl: true,
+    isShowScaleControl: false,
     // 是否展示鹰眼控件
-    isShowOverviewMap: true,
+    isShowOverviewMap: false,
     // 是否显示地图类型
-    isShowMapTypeControl: true,
+    isShowMapTypeControl: false,
     // 是否显示符号标绘控件
-    isShowMilitarySymbols: true,
+    isShowMilitarySymbols: false,
   }),
   actions: {
     // 开关版权控件
@@ -94,8 +94,8 @@ export const useControlOptionsStore = defineStore("controlOptions", {
       const { Tmap, addControl } = useTiandituStore();
       const copyControl = new window.T.Control.Zoom({
         position: window.T_ANCHOR_TOP_LEFT,
-        zoomInText: "🔼",
-        zoomOutText: "🔽",
+        // zoomInText: "🔼",
+        // zoomOutText: "🔽",
       });
       addControl("zoomControl", copyControl);
     },

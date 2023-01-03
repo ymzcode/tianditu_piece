@@ -3,7 +3,10 @@ import { useTiandituStore } from "@/stores/tianditu";
 import { useControlOptionsStore } from "@/stores/controlOptions";
 
 export const useSettingStore = defineStore("setting", {
-  state: () => ({}),
+  state: () => ({
+    // 弹出框的宽度
+    drawerWidth: 0,
+  }),
   actions: {
     /*
      * 初始化设置*/
@@ -19,10 +22,10 @@ export const useSettingStore = defineStore("setting", {
       } = useControlOptionsStore();
       createCopyright();
       createZoomControl();
-      createScaleControl();
-      createOverviewMap();
-      createMapTypeControl();
-      createMilitarySymbols();
+      // createScaleControl();
+      // createOverviewMap();
+      // createMapTypeControl();
+      // createMilitarySymbols();
       window.$mapControl = mapControl;
     },
   },

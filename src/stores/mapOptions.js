@@ -108,5 +108,12 @@ export const useMapOptionsStore = defineStore("mapOptions", {
       }
       this.isAutoResize ? Tmap.enableAutoResize() : Tmap.disableAutoResize();
     },
+    // 手动设置地图类型
+    setTMapType(type) {
+      // console.log(type);
+      const { Tmap } = useTiandituStore();
+      Tmap.removeControl(window[type]);
+      Tmap.addControl(window[type]);
+    },
   },
 });

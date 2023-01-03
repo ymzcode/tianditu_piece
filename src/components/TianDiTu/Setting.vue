@@ -17,10 +17,27 @@ import QweatherMixedWeather from "@/components/MapPopup/QweatherMixedWeather.vue
 import { useQweatherOptionsStore } from "@/stores/qweatherOptions";
 import EchartsOptions from "@/components/SettingItems/EchartsOptions.vue";
 import ChatGptOptions from "@/components/SettingItems/ChatGptOptions.vue";
+import { useSettingStore } from "@/stores/setting";
+import { useTiandituStore } from "@/stores/tianditu";
+import EldenRingOptions from "@/components/SettingItems/EldenRingOptions.vue";
 
 // 展示抽屉
 const isShowModel = ref(false);
 const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
+const pinia_useSettingStore = useSettingStore();
+const pinia_useTiandituStore = useTiandituStore();
+
+const drawerUpWid = (e) => {
+  // console.log(e);
+  pinia_useSettingStore.drawerWidth = e;
+  setTimeout(() => {
+    pinia_useTiandituStore.Tmap.checkResize();
+  }, 300);
+};
+
+const afterEnterDrawer = (e) => {
+  drawerUpWid(e.clientWidth);
+};
 </script>
 
 <template>
@@ -32,7 +49,16 @@ const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
   >
     设置
   </div>
-  <n-drawer v-model:show="isShowModel" :width="500">
+  <n-drawer
+    v-model:show="isShowModel"
+    default-width="450"
+    resizable
+    :show-mask="false"
+    :mask-closable="false"
+    @update-width="drawerUpWid"
+    @after-enter="afterEnterDrawer"
+    @after-leave="drawerUpWid(0)"
+  >
     <n-drawer-content title="地图设置" closable>
       <template #header>
         地图设置
@@ -40,7 +66,7 @@ const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
       </template>
       <div class="flex flex-col">
         <n-collapse>
-          <n-collapse-item title="地图属性控制" name="1">
+          <n-collapse-item title="地图属性" name="1">
             <!--            地图选项组件-->
             <map-options></map-options>
           </n-collapse-item>
@@ -75,6 +101,9 @@ const pinia_useQweatherOptionsStore = useQweatherOptionsStore();
           <n-collapse-item title="chatGPL（实验）" name="6">
             <!--            echarts应用组件-->
             <chat-gpt-options></chat-gpt-options>
+          </n-collapse-item>
+          <n-collapse-item title="艾尔登法环（Elden Ring）" name="7">
+            <elden-ring-options></elden-ring-options>
           </n-collapse-item>
         </n-collapse>
       </div>
