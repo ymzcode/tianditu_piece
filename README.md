@@ -24,6 +24,7 @@ npm run dev
 - [x] 在线调试和风天气中城市搜索、分钟预报、天气指数、空气质量等在天地图的应用效果
 - [x] 在地图图层中展示Echarts（包含3D）等绝大部分图表（[tmap-echarts](https://github.com/ymzcode/tmap-echarts)）
 - [x] 【**实验功能**】通过和chatGpt对话，可以调用地图中的方法
+- [x] 添加艾尔登法环地图瓦片
 - [ ] 其他功能思考🤔&开发👾中···
 
 # 各依赖项
