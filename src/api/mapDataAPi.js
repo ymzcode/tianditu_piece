@@ -3,7 +3,7 @@ import { request } from "@/api/request";
 // 全国幼儿园数据接口
 export function nationalKindergarten() {
   return request({
-    url: "https://console.tianditu.gov.cn/data/center-data/publish/1ce7f182791c4e889a6d73e91d0e32bf",
+    url: "https://file.bingyishow.top/tianditu_piece/json/kindergarten-new.json",
     method: "get",
   });
 }
